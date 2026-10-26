@@ -15,7 +15,7 @@ curl -s -m 15 'http://10.178.0.14:8188/api/manager/reboot' -o /dev/null -w 'rebo
 sleep 8
 echo "=== srv log ==="; tail -5 /tmp/srv8081.log
 d2n14.git
-refs=404
+refs=000
 === .14 alive? ===
 try1=200
 === reinstall ===

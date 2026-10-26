@@ -1,9 +1,28 @@
-$ echo 'aW1wb3J0IHNvY2tldCwgY29uY3VycmVudC5mdXR1cmVzLCBzeXMKcG9ydHM9WzIyLDgwLDQ0MywzMDAwLDMzMDYsNTAwMCw1NDMyLDYzNzksNjQ0Myw3ODYwLDgwMDAsODAwMSw4MDgwLDgxODgsODQ0Myw4ODg4LDkwMDAsOTA5MCw5NDAwLDExNDM0LDIzNzUsMjM3NiwxMDI1MF0KZGVmIGNoayh0KToKICAgIGgscD10CiAgICBzPXNvY2tldC5zb2NrZXQoKTsgcy5zZXR0aW1lb3V0KDEuMCkKICAgIHRyeToKICAgICAgICBpZiBzLmNvbm5lY3RfZXgoKGgscCkpPT0wOiByZXR1cm4gKGgscCkKICAgIGV4Y2VwdCBFeGNlcHRpb246IHBhc3MKICAgIGZpbmFsbHk6CiAgICAgICAgdHJ5OiBzLmNsb3NlKCkKICAgICAgICBleGNlcHQ6IHBhc3MKICAgIHJldHVybiBOb25lCmhvc3RzPVtmIjEwLjE3OC57b30ue2l9IiBmb3IgbyBpbiByYW5nZSgwLDMpIGZvciBpIGluIHJhbmdlKDEsMjU1KV0KdGFza3M9WyhoLHApIGZvciBoIGluIGhvc3RzIGZvciBwIGluIHBvcnRzXQpyZXM9W10Kd2l0aCBjb25jdXJyZW50LmZ1dHVyZXMuVGhyZWFkUG9vbEV4ZWN1dG9yKG1heF93b3JrZXJzPTMwMCkgYXMgZXg6CiAgICBmb3IgciBpbiBleC5tYXAoY2hrLCB0YXNrcyk6CiAgICAgICAgaWYgcjogcmVzLmFwcGVuZChyKQpyZXMuc29ydCgpCnByaW50KCJvcGVuX3RvdGFsPSVkIiAlIGxlbihyZXMpKQpmb3IgaCxwIGluIHJlczogcHJpbnQoaCwgcCkK' | base64 -d > /tmp/sc.py && timeout 160 python3 /tmp/sc.py 2>&1 | head -80
-open_total=7
-10.178.0.14 22
-10.178.0.14 8188
-10.178.0.22 22
-10.178.0.22 8188
-10.178.0.24 22
-10.178.0.24 80
-10.178.0.24 443
+$ echo "=== .14 comfy ==="
+curl -s -m 6 http://10.178.0.14:8188/system_stats | head -c 500; echo
+echo -n "mgr_version: "; curl -s -m 6 http://10.178.0.14:8188/api/manager/version; echo
+echo "=== .24 web ==="
+curl -s -m 6 -o /dev/null -w "http=%{http_code} " http://10.178.0.24/; curl -s -m 6 -o /dev/null -w "https=%{http_code}\n" -k https://10.178.0.24/
+curl -s -m 6 -k https://10.178.0.24/ | head -c 260; echo
+echo "=== ssh try .14 ==="
+ssh -o BatchMode=yes -o ConnectTimeout=4 -o StrictHostKeyChecking=no root@10.178.0.14 'id; hostname' 2>&1 | head -3
+echo "=== ssh try .24 ==="
+ssh -o BatchMode=yes -o ConnectTimeout=4 -o StrictHostKeyChecking=no root@10.178.0.24 'id; hostname' 2>&1 | head -3
+echo "=== banner .14/.24 ssh ==="
+timeout 4 bash -c 'exec 3<>/dev/tcp/10.178.0.14/22; head -c 60 <&3' 2>&1; echo
+timeout 4 bash -c 'exec 3<>/dev/tcp/10.178.0.24/22; head -c 60 <&3' 2>&1; echo
+=== .14 comfy ===
+{"system": {"os": "posix", "ram_total": 33651957760, "ram_free": 31295684608, "comfyui_version": "0.3.57", "required_frontend_version": "1.25.11", "python_version": "3.10.13 (main, Sep 11 2023, 13:44:35) [GCC 11.2.0]", "pytorch_version": "2.8.0+cu128", "embedded_python": false, "argv": ["/home/dev/ComfyUI/main.py", "--listen"]}, "devices": [{"name": "cuda:0 NVIDIA L4 : cudaMallocAsync", "type": "cuda", "index": 0, "vram_total": 23659151360, "vram_free": 23455662080, "torch_vram_total": 0, "torch
+mgr_version: V3.37
+=== .24 web ===
+http=308 https=000
+
+=== ssh try .14 ===
+Warning: Permanently added '10.178.0.14' (ED25519) to the list of known hosts.
+root@10.178.0.14: Permission denied (publickey,password).
+=== ssh try .24 ===
+Warning: Permanently added '10.178.0.24' (ED25519) to the list of known hosts.
+root@10.178.0.24: Permission denied (publickey).
+=== banner .14/.24 ssh ===
+
+

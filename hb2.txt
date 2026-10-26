@@ -1,1 +1,1 @@
-hb2 comfyvm-standard 1793006264
+hb2 comfy-s3 1793006307

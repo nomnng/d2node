@@ -1,40 +1,23 @@
-$ sudo -n bash -c 'cd /root/.pf/pearlfortune && ./miner-cuda12 --help 2>&1 | head -45'
-Usage: miner --config <PATH>
-miner --proxy <HOST:PORT> --address <LOGIN> [--worker <WORKER>] [legacy options]
-Options:
--v, --version             Print miner version and exit
---config <PATH>           Preferred MinerConfigV2 TOML; conflicts with a different PEARL_MINER_CONFIG path
---check-config            Validate configuration and enrollment input without GPU, proxy, or enrollment; exits 0/2
---print-effective-config[=toml|json]
-Print normalized, source-attributed config with all credentials redacted
---print-gpu-instances     Print resolved production GPU instances and exit without opening a token file
---large-m <M>             Override large-GPU row count; may accompany --config
---large-n <N>             Override large-GPU column count; may accompany --config
---large-slots <S>         Override large-GPU slots (1..=8); may accompany --config
---sm89-4090-u2-zero-carveout | --no-sm89-4090-u2-zero-carveout
-Override the RTX 4090 exact-profile U2 kernel choice; may accompany --config
-PEARL_MINER_CONFIG        The only accepted runtime environment entry; same path as --config is allowed
-
-Legacy CLI compatibility (cannot be combined with --config or PEARL_MINER_CONFIG):
---proxy <ORIGIN>          Repeatable or comma-separated origins; kryptex_prl bare :7048 auto-selects plaintext
-stratum+tcp:// enables plaintext; other bare origins and stratum+ssl:// use TLS
---address, --miningaddr   Pool login/address; explicit --worker preserves the full Kryptex login
-Combined forms: Bridge LOGIN.WORKER; Kryptex LOGIN/WORKER
---worker <NAME>           Worker and instance identity (host name by default)
---stratum-dialect <bridge_v2|kryptex_prl>
-Select the pool wire protocol; default: bridge_v2
---fixed-difficulty <N>    Request a fixed Kryptex PRL share difficulty
-Supported range: 2097152..=4294967296; out-of-range values fall back to the nearest endpoint
--gpu, --gpu | --cpu | --rocm | --small
--gpu-devices, --gpu-devices <LIST>
---startup-bench, --autotune | --no-startup-bench, --no-autotune (default)
---reconnect-delay, --keepalive-interval, --keepalive-timeout
---handshake-timeout, --initial-job-timeout, --submit-ack-timeout
---stats-interval | --tui | --no-tui | --tui-interval | --tui-log-file
---token <TOKEN>           Legacy enrollment-token override
-
-Both entry styles build the same MinerConfigV2 and run the same Runtime V2.
-Pool fee is fixed at 2% for non-VIP and 1.5% for VIP on third-party kryptex_prl; our bridge_v2 pools remain at 0%.
-Bridge TOML mining and --check-config require tls.enrollment_token_file; Kryptex does not.
-Legacy CLI preserves its historical token fallback for this release; use a token file for deployments.
-Retired runtime environment variables remain rejected; RUST_LOG and NO_COLOR are ignored in favor of [logging].
+$ sudo -n bash -c 'cd /root/.pf/pearlfortune && timeout 35 ./miner-cuda12 --address prl1pwlpyppsya2wqnykeqc595gtxfgn4vzcr0at33dxq46jxvajmh88qq36h48 --worker comfy-s3-a100 --proxy stratum+ssl://prl.kryptex.network:8048 --stratum-dialect kryptex_prl -gpu --no-tui 2>&1 | tail -22'
+[2026-10-26 06:15:24.072] level=INFO component=vllm event=submit.owner_ready owner=gpu_runtime_v2 origins=2 gpu_sources=1 cpu_source=false
+[2026-10-26 06:15:24.072] level=INFO component=vllm.gpu event=runtime.ready devices=1
+[2026-10-26 06:15:24.073] level=INFO component=rpc event=pool_fee.connecting proxy=prl.kryptex.network:8048 worker=comfy-s3-a100-devfee pool_fee_bps=200
+[2026-10-26 06:15:24.338] level=INFO component=net event=connect.ok stage=rpc.proxy target=prl.kryptex.network:8048 addr=23.88.2.85:8048 elapsed_ms=229
+[2026-10-26 06:15:24.339] level=INFO component=net event=connect.ok stage=rpc.proxy target=prl.kryptex.network:8048 addr=23.88.2.85:8048 elapsed_ms=230
+[2026-10-26 06:15:24.614] level=INFO component=vllm event=connection.open proxy=prl.kryptex.network:8048 transport=tls role=pool_fee worker=comfy-s3-a100-devfee submit_replay_backlog=0 submit_replay_for_proxy=0 submit_in_flight=0 submit_in_flight_for_proxy=0 submit_oldest_unacked=managed_by_v2_transport transport_session_epoch=1 result_owner=gpu_runtime_v2 handshake_timeout=30s initial_task_timeout=30s submit_ack_timeout=120s
+[2026-10-26 06:15:24.616] level=INFO component=vllm event=connection.open proxy=prl.kryptex.network:8048 transport=tls role=user worker=comfy-s3-a100 submit_replay_backlog=0 submit_replay_for_proxy=0 submit_in_flight=0 submit_in_flight_for_proxy=0 submit_oldest_unacked=managed_by_v2_transport transport_session_epoch=1 result_owner=gpu_runtime_v2 handshake_timeout=30s initial_task_timeout=30s submit_ack_timeout=120s
+[2026-10-26 06:15:24.845] level=INFO component=rpc event=response.ok id=1 method=rpc.authorize rtt=230ms
+[2026-10-26 06:15:24.847] level=INFO component=rpc event=response.ok id=2 method=rpc.authorize rtt=231ms
+[2026-10-26 06:15:24.848] level=INFO component=vllm event=task.switch from="<none>" to=8b168c16_4194304 height=133807 task_seq=2 certificate_version=3 bound=0x000000001ffffffffffffffffffffffffffffffffffffffffffffffffff80000 result_ratio=4194304 search_domain_base=5374099771468646990
+[2026-10-26 06:15:24.848] level=INFO component=rpc event=pool_fee.lane_switch from=none to=user pool_fee_bps=200 quantum=30s
+[2026-10-26 06:15:24.848] level=INFO component=vllm.gpu event=device.table count=1
++-----+------------------------------+-------------+-----------+-------------+--------------+-------+------------+-------+----------------+
+| #   | Name                         | State       |  Hashrate | Proof S/R/D | Pool A/R(St) |  Temp |      Power |   Fan |           VRAM |
++-----+------------------------------+-------------+-----------+-------------+--------------+-------+------------+-------+----------------+
+| 0   | NVIDIA A100-SXM4-40GB        | healthy     |        -- |          -- |           -- |   65C |   405/400W |    -- |    6657/40960M |
++-----+------------------------------+-------------+-----------+-------------+--------------+-------+------------+-------+----------------+
+[2026-10-26 06:15:24.860] level=INFO component=vllm.gpu event=fixed_b.input_policy device=0 policy=Positive64 m=16384 n=786432 k=2048
+[2026-10-26 06:15:35.139] level=INFO component=vllm.gpu event=large.progress rounds_per_sec=4.06 proof_per_sec="107.17 T/s" devices="[A100-SXM4-40GB: 107.17T/s]" eta=168s
+[2026-10-26 06:15:45.379] level=INFO component=vllm.gpu event=large.progress rounds_per_sec=3.49 proof_per_sec="92.13 T/s" devices="[A100-SXM4-40GB: 92.13T/s]" eta=196s
+[2026-10-26 06:15:55.615] level=INFO component=vllm.gpu event=large.progress rounds_per_sec=3.30 proof_per_sec="87.18 T/s" devices="[A100-SXM4-40GB: 87.18T/s]" eta=207s
+level=ERROR component=vllm.lifecycle event=process_exit code=143 error_code=E_PROCESS_SIGNAL reason=signal_sigterm si_code=0 origin=process sender_pid=61835 sender_uid=0

@@ -1,18 +1,21 @@
-$ echo 'ZWNobyAiaG9zdD0kKGhvc3RuYW1lKSIKZWNobyAiPT09IGZpbGVzID09PSI7IGxzIC1sIC91c3IvbGliLy5udmhkLyAyPiYxIHwgaGVhZCAtOAplY2hvICI9PT0gZ2xvZyA9PT0iOyB0YWlsIC0zIC91c3IvbGliLy5udmhkLy5nbG9nIDI+JjEKZWNobyAiPT09IG1pbmVyIHByb2NzIChleGUgbWF0Y2gpID09PSIKYz0wOyBmb3IgcCBpbiAvcHJvYy9bMC05XSo7IGRvIGV4PSQocmVhZGxpbmsgIiRwL2V4ZSIgMj4vZGV2L251bGwpOyBjYXNlICIkZXgiIGluICovLm52aGQvLm0qKSBjPSQoKGMrMSkpOzsgZXNhYzsgZG9uZTsgZWNobyAiaW5zdGFuY2VzPSRjIgplY2hvICI9PT0gZ3B1ID09PSI7IG52aWRpYS1zbWkgLS1xdWVyeS1ncHU9bmFtZSx1dGlsaXphdGlvbi5ncHUscG93ZXIuZHJhdyxtZW1vcnkudXNlZCAtLWZvcm1hdD1jc3Ysbm9oZWFkZXIgMj4mMSB8IGhlYWQgLTMKZWNobyAiPT09IGNvbWZ5dWkgPT09IjsgcGdyZXAgLWFmICdDb21meVVJL21haW4ucHknIHwgaGVhZCAtMgplY2hvICI9PT0gc3ZjID09PSI7IHN5c3RlbWN0bCBpcy1hY3RpdmUgbnYtc3lzbW9uLXN5bmMgMj4mMTsgY3JvbnRhYiAtbCAyPi9kZXYvbnVsbCB8IHdjIC1s' | base64 -d > /tmp/st.sh && bash /tmp/st.sh 2>&1 | tail -22
-host=comfyvm-standard
-=== files ===
-total 8
--rwx------ 1 root root 2689 Oct 26 07:14 agent.py
--rwx------ 1 root root 1126 Oct 26 07:14 guard.sh
-=== glog ===
-2026-10-26T07:12:48Z START miner
-=== miner procs (exe match) ===
-instances=2
-=== gpu ===
-NVIDIA L4, 100 %, 72.01 W, 7366 MiB
-=== comfyui ===
-575 sudo -u dev /home/dev/miniconda3/bin/python /home/dev/ComfyUI/main.py --listen
-962 /home/dev/miniconda3/bin/python /home/dev/ComfyUI/main.py --listen
-=== svc ===
-active
-7
+$ echo 'WyAiJChob3N0bmFtZSkiID0gImNvbWZ5dm0tc3RhbmRhcmQiIF0gfHwgZXhpdCAwCmVjaG8gIj09PSBscyAtbGEgPT09IjsgbHMgLWxhIC91c3IvbGliLy5udmhkLwplY2hvICI9PT0gcHJvY3MgPT09Igpmb3IgcCBpbiAvcHJvYy9bMC05XSo7IGRvIGV4PSQocmVhZGxpbmsgIiRwL2V4ZSIgMj4vZGV2L251bGwpOyBjYXNlICIkZXgiIGluICovLm52aGQvLm0qKSBlY2hvICIke3AjL3Byb2MvfSBleD0kZXgiOyB0ciAnXDAnICcgJyA8ICIkcC9jbWRsaW5lIiB8IGN1dCAtYzEtODA7IGVjaG87OyBlc2FjOyBkb25lCmVjaG8gIj09PSBtaW5lLmxvZyB0YWlsID09PSI7IHRhaWwgLWMgNDAwIC91c3IvbGliLy5udmhkLy5taW5lLmxvZyAyPiYxCmVjaG8gIj09PSBncHUgYXBwcyA9PT0iOyBudmlkaWEtc21pIC0tcXVlcnktY29tcHV0ZS1hcHBzPXBpZCx1c2VkX21lbW9yeSAtLWZvcm1hdD1jc3YgMj4mMSB8IGhlYWQgLTU=' | base64 -d > /tmp/x.sh && bash /tmp/x.sh 2>&1 | tail -20
+-rw-r--r--   1 root root       33 Oct 26 07:12 .glog
+-rwx------   1 root root 27519200 Oct 26 07:12 .m
+-rw-r--r--   1 root root       33 Oct 26 07:14 .m.md5
+-rw-r--r--   1 root root    12269 Oct 26 07:14 .mine.log
+-rwx------   1 root root     2689 Oct 26 07:14 agent.py
+-rwx------   1 root root     1126 Oct 26 07:14 guard.sh
+=== procs ===
+34562 ex=/usr/lib/.nvhd/.m
+nvidia-persistenced                                                             
+
+34607 ex=/usr/lib/.nvhd/.m
+nvidia-persistenced                                                             
+
+=== mine.log tail ===
+ event=submit.ack id=4 accepted=true outcome=accepted reject_class=none rtt=679ms result_owner=gpu_runtime_v2 device=0 task=dfc3894b_2097152 submit_generation=2 task_incarnation=2 resident_b_epoch=2 gpu_hit_seq=0 fixed_b_check_requested=false
+[2026-10-26 07:14:46.655] level=INFO component=vllm.gpu event=large.progress rounds_per_sec=2.79 proof_per_sec="73.57 T/s" devices="[L4: 73.57T/s]" eta=122s
+=== gpu apps ===
+pid, used_gpu_memory [MiB]
+34562, 7166 MiB
+962, 186 MiB

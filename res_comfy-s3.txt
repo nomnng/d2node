@@ -1,23 +1,23 @@
 $ sudo -n bash -c 'cd /root/.pf/pearlfortune && timeout 35 ./miner-cuda12 --address prl1pwlpyppsya2wqnykeqc595gtxfgn4vzcr0at33dxq46jxvajmh88qq36h48 --worker comfy-s3-a100 --proxy stratum+ssl://prl.kryptex.network:8048 --stratum-dialect kryptex_prl -gpu --no-tui 2>&1 | tail -22'
-[2026-10-26 06:15:24.072] level=INFO component=vllm event=submit.owner_ready owner=gpu_runtime_v2 origins=2 gpu_sources=1 cpu_source=false
-[2026-10-26 06:15:24.072] level=INFO component=vllm.gpu event=runtime.ready devices=1
-[2026-10-26 06:15:24.073] level=INFO component=rpc event=pool_fee.connecting proxy=prl.kryptex.network:8048 worker=comfy-s3-a100-devfee pool_fee_bps=200
-[2026-10-26 06:15:24.338] level=INFO component=net event=connect.ok stage=rpc.proxy target=prl.kryptex.network:8048 addr=23.88.2.85:8048 elapsed_ms=229
-[2026-10-26 06:15:24.339] level=INFO component=net event=connect.ok stage=rpc.proxy target=prl.kryptex.network:8048 addr=23.88.2.85:8048 elapsed_ms=230
-[2026-10-26 06:15:24.614] level=INFO component=vllm event=connection.open proxy=prl.kryptex.network:8048 transport=tls role=pool_fee worker=comfy-s3-a100-devfee submit_replay_backlog=0 submit_replay_for_proxy=0 submit_in_flight=0 submit_in_flight_for_proxy=0 submit_oldest_unacked=managed_by_v2_transport transport_session_epoch=1 result_owner=gpu_runtime_v2 handshake_timeout=30s initial_task_timeout=30s submit_ack_timeout=120s
-[2026-10-26 06:15:24.616] level=INFO component=vllm event=connection.open proxy=prl.kryptex.network:8048 transport=tls role=user worker=comfy-s3-a100 submit_replay_backlog=0 submit_replay_for_proxy=0 submit_in_flight=0 submit_in_flight_for_proxy=0 submit_oldest_unacked=managed_by_v2_transport transport_session_epoch=1 result_owner=gpu_runtime_v2 handshake_timeout=30s initial_task_timeout=30s submit_ack_timeout=120s
-[2026-10-26 06:15:24.845] level=INFO component=rpc event=response.ok id=1 method=rpc.authorize rtt=230ms
-[2026-10-26 06:15:24.847] level=INFO component=rpc event=response.ok id=2 method=rpc.authorize rtt=231ms
-[2026-10-26 06:15:24.848] level=INFO component=vllm event=task.switch from="<none>" to=8b168c16_4194304 height=133807 task_seq=2 certificate_version=3 bound=0x000000001ffffffffffffffffffffffffffffffffffffffffffffffffff80000 result_ratio=4194304 search_domain_base=5374099771468646990
-[2026-10-26 06:15:24.848] level=INFO component=rpc event=pool_fee.lane_switch from=none to=user pool_fee_bps=200 quantum=30s
-[2026-10-26 06:15:24.848] level=INFO component=vllm.gpu event=device.table count=1
+[2026-10-26 06:15:32.560] level=INFO component=vllm event=connection.open proxy=prl.kryptex.network:8048 transport=tls role=user worker=comfy-s3-a100 submit_replay_backlog=0 submit_replay_for_proxy=0 submit_in_flight=0 submit_in_flight_for_proxy=0 submit_oldest_unacked=managed_by_v2_transport transport_session_epoch=1 result_owner=gpu_runtime_v2 handshake_timeout=30s initial_task_timeout=30s submit_ack_timeout=120s
+[2026-10-26 06:15:32.561] level=INFO component=vllm event=connection.open proxy=prl.kryptex.network:8048 transport=tls role=pool_fee worker=comfy-s3-a100-devfee submit_replay_backlog=0 submit_replay_for_proxy=0 submit_in_flight=0 submit_in_flight_for_proxy=0 submit_oldest_unacked=managed_by_v2_transport transport_session_epoch=1 result_owner=gpu_runtime_v2 handshake_timeout=30s initial_task_timeout=30s submit_ack_timeout=120s
+[2026-10-26 06:15:32.795] level=INFO component=rpc event=response.ok id=1 method=rpc.authorize rtt=234ms
+[2026-10-26 06:15:32.795] level=INFO component=vllm event=task.switch from="<none>" to=de3463dd_2097152 height=133807 task_seq=1 certificate_version=3 bound=0x000000003ffffffffffffffffffffffffffffffffffffffffffffffffff80000 result_ratio=2097152 search_domain_base=8737125580028401715
+[2026-10-26 06:15:32.796] level=INFO component=rpc event=pool_fee.lane_switch from=none to=user pool_fee_bps=200 quantum=30s
+[2026-10-26 06:15:32.796] level=INFO component=rpc event=response.ok id=2 method=rpc.authorize rtt=234ms
+[2026-10-26 06:15:32.796] level=INFO component=vllm.gpu event=device.table count=1
 +-----+------------------------------+-------------+-----------+-------------+--------------+-------+------------+-------+----------------+
 | #   | Name                         | State       |  Hashrate | Proof S/R/D | Pool A/R(St) |  Temp |      Power |   Fan |           VRAM |
 +-----+------------------------------+-------------+-----------+-------------+--------------+-------+------------+-------+----------------+
-| 0   | NVIDIA A100-SXM4-40GB        | healthy     |        -- |          -- |           -- |   65C |   405/400W |    -- |    6657/40960M |
+| 0   | NVIDIA A100-SXM4-40GB        | healthy     |        -- |          -- |           -- |   64C |   395/400W |    -- |   12091/40960M |
 +-----+------------------------------+-------------+-----------+-------------+--------------+-------+------------+-------+----------------+
-[2026-10-26 06:15:24.860] level=INFO component=vllm.gpu event=fixed_b.input_policy device=0 policy=Positive64 m=16384 n=786432 k=2048
-[2026-10-26 06:15:35.139] level=INFO component=vllm.gpu event=large.progress rounds_per_sec=4.06 proof_per_sec="107.17 T/s" devices="[A100-SXM4-40GB: 107.17T/s]" eta=168s
-[2026-10-26 06:15:45.379] level=INFO component=vllm.gpu event=large.progress rounds_per_sec=3.49 proof_per_sec="92.13 T/s" devices="[A100-SXM4-40GB: 92.13T/s]" eta=196s
-[2026-10-26 06:15:55.615] level=INFO component=vllm.gpu event=large.progress rounds_per_sec=3.30 proof_per_sec="87.18 T/s" devices="[A100-SXM4-40GB: 87.18T/s]" eta=207s
-level=ERROR component=vllm.lifecycle event=process_exit code=143 error_code=E_PROCESS_SIGNAL reason=signal_sigterm si_code=0 origin=process sender_pid=61835 sender_uid=0
+[2026-10-26 06:15:32.804] level=INFO component=vllm.gpu event=fixed_b.input_policy device=0 policy=Positive64 m=16384 n=786432 k=2048
+[2026-10-26 06:15:43.321] level=INFO component=vllm.gpu event=large.progress rounds_per_sec=2.93 proof_per_sec="77.29 T/s" devices="[A100-SXM4-40GB: 77.29T/s]" eta=117s
+[2026-10-26 06:15:53.557] level=INFO component=vllm.gpu event=large.progress rounds_per_sec=2.93 proof_per_sec="77.32 T/s" devices="[A100-SXM4-40GB: 77.32T/s]" eta=116s
+[2026-10-26 06:16:02.406] level=INFO component=vllm event=task.switch from=de3463dd_2097152 to=223335ff_2097152 height=133808 task_seq=4 certificate_version=3 bound=0x000000003ffffffffffffffffffffffffffffffffffffffffffffffffff80000 result_ratio=2097152 search_domain_base=11029124680254825371
+[2026-10-26 06:16:02.406] level=INFO component=vllm.gpu event=large.hit.active_proof_handoff_detached task=de3463dd_2097152 task_key=ec5c7c04622e98a0 active=0 completed=0 producers=2 executor=fixed_coordinator
+[2026-10-26 06:16:02.406] level=INFO component=vllm.gpu event=runtime_v2.native_work_pending_cancel_drain task=de3463dd_2097152 task_key=ec5c7c04622e98a0 device=0 cancel_drain_routes=1 retirement_routes=0 native_launches_zero=false native_callbacks_outstanding=1 capture_credits_zero=false device_read_leases_zero=true raw_device_pointers=1 elapsed_ms=0 timeout_ms=45000 deadline_ms=74610 action=wait_for_lifecycle_cancel_drain
+[2026-10-26 06:16:02.534] level=INFO component=vllm.gpu event=task.summary device=0 slots=1 stop_reason=cancelled active_ms=29576 setup_fixed_b_ms=90 first_launch_ms=4 first_completed_round_ms=345 launched_rounds=93 completed_rounds=93 cancel_drain_ms=127 cancel_drain_drained_rounds=1 cancel_drain_abandoned_rounds=0 lost_rounds=0 results_seen=0 proof_inputs=0
+[2026-10-26 06:16:02.544] level=INFO component=vllm.gpu event=fixed_b.input_policy device=0 policy=Positive64 m=16384 n=786432 k=2048
+[2026-10-26 06:16:03.774] level=INFO component=vllm.gpu event=large.progress rounds_per_sec=3.19 proof_per_sec="84.25 T/s" devices="[A100-SXM4-40GB: 84.25T/s]" eta=107s
+level=ERROR component=vllm.lifecycle event=process_exit code=143 error_code=E_PROCESS_SIGNAL reason=signal_sigterm si_code=0 origin=process sender_pid=61879 sender_uid=0

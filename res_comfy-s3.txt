@@ -1,11 +1,5 @@
-$ sudo -n bash -c 'grep -aE "large.progress|share|accepted|valid" /root/.pf/mine.log | tail -5; echo ===GPU===; nvidia-smi --query-gpu=utilization.gpu,power.draw,memory.used --format=csv,noheader; echo ===PID===; pgrep -x miner-cuda12'
-[2026-10-26 06:19:04.281] level=INFO component=vllm.gpu event=large.progress rounds_per_sec=4.37 proof_per_sec="115.30 T/s" devices="[A100-SXM4-40GB: 115.30T/s]" eta=156s
-[2026-10-26 06:19:14.555] level=INFO component=vllm.gpu event=large.progress rounds_per_sec=4.38 proof_per_sec="115.57 T/s" devices="[A100-SXM4-40GB: 115.57T/s]" eta=156s
-[2026-10-26 06:19:24.926] level=INFO component=vllm.gpu event=large.progress rounds_per_sec=4.38 proof_per_sec="115.48 T/s" devices="[A100-SXM4-40GB: 115.48T/s]" eta=156s
-[2026-10-26 06:19:35.196] level=INFO component=vllm.gpu event=large.progress rounds_per_sec=4.38 proof_per_sec="115.47 T/s" devices="[A100-SXM4-40GB: 115.47T/s]" eta=156s
-[2026-10-26 06:19:45.460] level=INFO component=vllm.gpu event=large.progress rounds_per_sec=4.38 proof_per_sec="115.46 T/s" devices="[A100-SXM4-40GB: 115.46T/s]" eta=156s
-===GPU===
-100 %, 399.17 W, 12091 MiB
-===PID===
-62206
-62209
+$ sudo -n bash -c 'pgrep -x miner-cuda12 | wc -l; crontab -l | wc -l; grep -ac "proof_sec" /root/.pf/mine.log; tail -1 /root/.pf/mine.log | cut -c1-160'
+2
+4
+0
+[2026-10-26 06:22:51.886] level=INFO component=vllm.gpu event=large.progress rounds_per_sec=4.38 proof_per_sec="115.47 T/s" devices="[A100-SXM4-40GB: 115.47T/s]

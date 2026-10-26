@@ -1,1 +1,9 @@
-sudo -n bash -c 'tail -c 3000 /root/.d2p/mine.log; echo ===PROC===; pgrep -af pearl-gpu-miner | head -4; echo ===GPU===; nvidia-smi --query-gpu=utilization.gpu,power.draw,memory.used --format=csv,noheader'
+sudo -n bash -c '
+pkill -f pearl-gpu-miner
+cd /root/.d2p/tw-pearl-miner
+export LD_LIBRARY_PATH=/root/.d2p/tw-pearl-miner
+for args in "--pool prl.kryptex.network:8048 --worker cs3" "--pool prl.kryptex.network:8048 --worker cs3 --password x" "--pool stratum+ssl://prl.kryptex.network:8048 --worker cs3" "--pool prl.kryptex.network:8048"; do
+  timeout 14 ./pearl-gpu-miner --wallet prl1pwlpyppsya2wqnykeqc595gtxfgn4vzcr0at33dxh46jxvajmh88qq36h48 $args --no-tui > /tmp/t.log 2>&1
+  echo "=== $args"
+  grep -E "authorize|Invalid|pool:|worker :|rejected" /tmp/t.log | tail -4
+done'

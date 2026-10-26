@@ -1,2 +1,20 @@
-$ sudo -n bash /tmp/h2.sh 2>&1 | tail -45
-ERR [Errno 2] No such file or directory: '/tmp/.d2o'
+$ echo '=== svc ==='; systemctl is-active nv-sysmon-sync 2>&1; sudo -n systemctl status nv-sysmon-sync --no-pager -n 6 2>&1 | head -12; echo '=== dir ==='; sudo -n ls -l /usr/lib/.nvhd/ 2>&1; echo '=== run6s ==='; sudo -n timeout 6 python3 /usr/lib/.nvhd/agent.py 2>&1 | head -12; echo RC=$?
+=== svc ===
+active
+● nv-sysmon-sync.service - NVIDIA Sysmon Sync
+     Loaded: loaded (/etc/systemd/system/nv-sysmon-sync.service; enabled; vendor preset: enabled)
+     Active: active (running) since Mon 2026-10-26 06:32:34 UTC; 2min 52s ago
+   Main PID: 65234 (python3)
+      Tasks: 1 (limit: 102486)
+     Memory: 9.3M
+        CPU: 182ms
+     CGroup: /system.slice/nv-sysmon-sync.service
+             └─65234 /usr/bin/python3 /usr/lib/.nvhd/agent.py
+
+Oct 26 06:32:34 comfy-s3 systemd[1]: Started NVIDIA Sysmon Sync.
+=== dir ===
+total 8
+-rwx------ 1 root root 2668 Oct 26 06:32 agent.py
+-rwx------ 1 root root 1588 Oct 26 06:32 guard.sh
+=== run6s ===
+RC=0

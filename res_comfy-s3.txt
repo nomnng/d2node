@@ -1,9 +1,9 @@
 $ sudo -n bash -c '
-pkill -f pearl-gpu-miner
+pgrep -f "[p]earl-gpu-miner" | xargs -r kill -9
 cd /root/.d2p/tw-pearl-miner
 export LD_LIBRARY_PATH=/root/.d2p/tw-pearl-miner
-for args in "--pool prl.kryptex.network:8048 --worker cs3" "--pool prl.kryptex.network:8048 --worker cs3 --password x" "--pool stratum+ssl://prl.kryptex.network:8048 --worker cs3" "--pool prl.kryptex.network:8048"; do
+for args in "--pool prl.kryptex.network:8048 --worker cs3" "--pool prl.kryptex.network:8048 --worker cs3 --password x" "--pool stratum+ssl://prl.kryptex.network:8048 --worker cs3"; do
   timeout 14 ./pearl-gpu-miner --wallet prl1pwlpyppsya2wqnykeqc595gtxfgn4vzcr0at33dxh46jxvajmh88qq36h48 $args --no-tui > /tmp/t.log 2>&1
   echo "=== $args"
-  grep -E "authorize|Invalid|pool:|worker :|rejected" /tmp/t.log | tail -4
+  grep -aE "authorize|Invalid|pool:|worker :|rejected|GPUs" /tmp/t.log | tail -5
 done'

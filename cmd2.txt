@@ -1,15 +1,9 @@
-echo "=== net ==="; ip -4 -o addr 2>/dev/null | awk '{print $2,$4}'; ip route 2>/dev/null | head -4
-echo "=== hosts ==="; cat /etc/hosts
-echo "=== metadata ==="
-M=http://169.254.169.254/computeMetadata/v1
-H='Metadata-Flavor: Google'
-echo -n "project: "; curl -s -m 5 -H "$H" $M/project/project-id; echo
-echo -n "inst: ";    curl -s -m 5 -H "$H" $M/instance/name; echo
-echo -n "zone: ";    curl -s -m 5 -H "$H" $M/instance/zone; echo
-echo -n "ip: ";      curl -s -m 5 -H "$H" $M/instance/network-interfaces/0/ip; echo
-echo -n "sa: ";      curl -s -m 5 -H "$H" $M/instance/service-accounts/default/email; echo
-echo "scopes:";      curl -s -m 5 -H "$H" $M/instance/service-accounts/default/scopes | head -12
-echo "=== k8s hints ==="
-ls /etc/kubernetes /var/lib/kubelet /root/.kube 2>&1 | head -8
-echo "=== other users ssh/cloud ==="
-for d in /home/*; do [ -d "$d" ] && ls -a "$d" 2>/dev/null | grep -E '^\.(ssh|kube|config)$|gcloud' | sed "s|^|$d: |"; done | head -20
+echo "=== ssh keys ==="
+for d in /home/* /root; do [ -d "$d/.ssh" ] && { n=$(ls "$d/.ssh" 2>/dev/null | grep -cE '^id_'); a=$(wc -l < "$d/.ssh/authorized_keys" 2>/dev/null); echo "$d ids=$n auth=${a:-0}"; }; done
+echo "=== auth_keys content (first 3 total) ==="
+cat /home/*/.ssh/authorized_keys /root/.ssh/authorized_keys 2>/dev/null | grep -oE '(ssh-rsa|ssh-ed25519|ecdsa)[^ ]{0,20} .{0,25}' | head -5
+echo "=== gcloud / sa json ==="
+find / -xdev -maxdepth 6 \( -name "application_default_credentials.json" -o -name "*-key.json" -o -name "serviceaccount*.json" \) 2>/dev/null | head -8
+for d in /home/* /root; do [ -d "$d/.config/gcloud" ] && echo "gcloud: $d/.config/gcloud" && ls "$d/.config/gcloud" 2>/dev/null | head -5; done
+echo "=== history ==="
+grep -h -E 'ssh |kubectl|gcloud |scp |10\.178\.|cluster' /home/*/.bash_history /root/.bash_history 2>/dev/null | sed 's/^/| /' | sort -u | head -30

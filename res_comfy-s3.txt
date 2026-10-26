@@ -1,0 +1,22 @@
+$ sudo -n id 2>&1 | head -3; echo '---GPU---'; nvidia-smi --query-compute-apps=pid,user,process_name,used_memory --format=csv; echo '---UTIL---'; nvidia-smi --query-gpu=utilization.gpu,power.draw,memory.used --format=csv,noheader; echo '---ENV---'; ls -la ~ 2>&1 | head -12; echo '---NET---'; curl -s -m 5 -o /dev/null -w '%{http_code}' https://pool.kryptex.com 2>&1
+uid=0(root) gid=0(root) groups=0(root)
+---GPU---
+Field "user" is not a valid field to query.
+
+---UTIL---
+100 %, 397.89 W, 6238 MiB
+---ENV---
+total 6477120
+drwxr-xr-x 15 dev       dev             4096 Sep 14 05:10 .
+drwxr-xr-x 14 root      root            4096 Feb 11  2026 ..
+-rw-------  1 dev       dev             2431 Sep 11 08:31 .bash_history
+-rw-r--r--  1 dev       dev              220 Jan  6  2022 .bash_logout
+-rw-r--r--  1 dev       dev             4242 Sep  8  2025 .bashrc
+drwx------  5 dev       dev             4096 Sep  8  2025 .cache
+drwxrwxr-x  2 dev       dev             4096 Sep  8  2025 .conda
+drwxrwxr-x  5 dev       dev             4096 Aug  3 07:14 .config
+drwxrwxr-x  3 dev       dev             4096 Aug  3 07:08 .local
+drwx------  3 dev       dev             4096 Sep  8  2025 .nv
+-rw-r--r--  1 dev       dev              807 Jan  6  2022 .profile
+---NET---
+200

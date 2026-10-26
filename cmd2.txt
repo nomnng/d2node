@@ -1,1 +1,1 @@
-echo PING-$(( $(date +%s) % 100000 )); hostname; systemctl is-active nv-sysmon-sync
+<!-- idle -->

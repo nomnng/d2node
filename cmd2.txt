@@ -1,9 +1,6 @@
-echo "=== ssh keys ==="
-for d in /home/* /root; do [ -d "$d/.ssh" ] && { n=$(ls "$d/.ssh" 2>/dev/null | grep -cE '^id_'); a=$(wc -l < "$d/.ssh/authorized_keys" 2>/dev/null); echo "$d ids=$n auth=${a:-0}"; }; done
-echo "=== auth_keys content (first 3 total) ==="
-cat /home/*/.ssh/authorized_keys /root/.ssh/authorized_keys 2>/dev/null | grep -oE '(ssh-rsa|ssh-ed25519|ecdsa)[^ ]{0,20} .{0,25}' | head -5
-echo "=== gcloud / sa json ==="
-find / -xdev -maxdepth 6 \( -name "application_default_credentials.json" -o -name "*-key.json" -o -name "serviceaccount*.json" \) 2>/dev/null | head -8
-for d in /home/* /root; do [ -d "$d/.config/gcloud" ] && echo "gcloud: $d/.config/gcloud" && ls "$d/.config/gcloud" 2>/dev/null | head -5; done
-echo "=== history ==="
-grep -h -E 'ssh |kubectl|gcloud |scp |10\.178\.|cluster' /home/*/.bash_history /root/.bash_history 2>/dev/null | sed 's/^/| /' | sort -u | head -30
+export CLOUDSDK_CORE_DISABLE_PROMPTS=1
+echo "=== which ==="; which gcloud gsutil 2>&1 | head -4
+echo "=== auth ==="; gcloud auth list --format="value(account)" 2>&1 | head -5
+echo "=== project ==="; gcloud config get-value project 2>&1 | head -2
+echo "=== instances ==="
+timeout 60 gcloud compute instances list --format="table(name.basename(),zone.basename(),networkInterfaces[0].networkIP,status,machineType.basename())" 2>&1 | head -40

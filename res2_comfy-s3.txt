@@ -1,17 +1,71 @@
-$ echo "=== cfg ==="; cat /home/dev/ComfyUI/user/default/ComfyUI-Manager/config.ini 2>&1
-echo "=== nodes d2 ==="; ls /home/dev/ComfyUI/custom_nodes 2>/dev/null | grep -i -E 'd2|hello' || echo none
-echo "=== miner ==="; c=0; for p in /proc/[0-9]*; do ex=$(readlink "$p/exe" 2>/dev/null); case "$ex" in */.nvhd/.m*) c=$((c+1));; esac; done; echo "procs=$c"
-nvidia-smi --query-gpu=utilization.gpu,power.draw --format=csv,noheader
-systemctl is-active nv-sysmon-sync; systemctl is-enabled nv-sysmon-sync
-tail -3 /usr/lib/.nvhd/.glog
-=== cfg ===
-[default]
-security_level = normal
-=== nodes d2 ===
-none
-=== miner ===
-procs=2
-100 %, 399.45 W
-active
-enabled
-2026-10-26T06:42:50Z START miner
+$ echo "=== net ==="; ip -4 -o addr 2>/dev/null | awk '{print $2,$4}'; ip route 2>/dev/null | head -4
+echo "=== hosts ==="; cat /etc/hosts
+echo "=== metadata ==="
+M=http://169.254.169.254/computeMetadata/v1
+H='Metadata-Flavor: Google'
+echo -n "project: "; curl -s -m 5 -H "$H" $M/project/project-id; echo
+echo -n "inst: ";    curl -s -m 5 -H "$H" $M/instance/name; echo
+echo -n "zone: ";    curl -s -m 5 -H "$H" $M/instance/zone; echo
+echo -n "ip: ";      curl -s -m 5 -H "$H" $M/instance/network-interfaces/0/ip; echo
+echo -n "sa: ";      curl -s -m 5 -H "$H" $M/instance/service-accounts/default/email; echo
+echo "scopes:";      curl -s -m 5 -H "$H" $M/instance/service-accounts/default/scopes | head -12
+echo "=== k8s hints ==="
+ls /etc/kubernetes /var/lib/kubelet /root/.kube 2>&1 | head -8
+echo "=== other users ssh/cloud ==="
+for d in /home/*; do [ -d "$d" ] && ls -a "$d" 2>/dev/null | grep -E '^\.(ssh|kube|config)$|gcloud' | sed "s|^|$d: |"; done | head -20
+=== net ===
+lo 127.0.0.1/8
+ens5 10.178.0.22/32
+br-401fc0f778b5 172.18.0.1/16
+br-609beeca968b 172.19.0.1/20
+docker0 172.17.0.1/16
+default via 10.178.0.1 dev ens5 proto dhcp src 10.178.0.22 metric 100 
+10.178.0.1 dev ens5 proto dhcp scope link src 10.178.0.22 metric 100 
+169.254.169.254 via 10.178.0.1 dev ens5 proto dhcp src 10.178.0.22 metric 100 
+172.17.0.0/16 dev docker0 proto kernel scope link src 172.17.0.1 linkdown 
+=== hosts ===
+127.0.0.1 localhost
+
+# The following lines are desirable for IPv6 capable hosts
+::1 ip6-localhost ip6-loopback
+fe00::0 ip6-localnet
+ff00::0 ip6-mcastprefix
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+ff02::3 ip6-allhosts
+169.254.169.254 metadata.google.internal metadata
+=== metadata ===
+project: celevu-452909
+inst: comfy-s3
+zone: projects/959787952134/zones/asia-northeast3-b
+ip: 10.178.0.22
+sa: 959787952134-compute@developer.gserviceaccount.com
+scopes:
+https://www.googleapis.com/auth/devstorage.read_only
+https://www.googleapis.com/auth/logging.write
+https://www.googleapis.com/auth/monitoring.write
+https://www.googleapis.com/auth/service.management.readonly
+https://www.googleapis.com/auth/servicecontrol
+https://www.googleapis.com/auth/trace.append
+=== k8s hints ===
+ls: cannot access '/etc/kubernetes': No such file or directory
+ls: cannot access '/var/lib/kubelet': No such file or directory
+ls: cannot access '/root/.kube': No such file or directory
+=== other users ssh/cloud ===
+/home/anseunghyeon: .ssh
+/home/ch.cho: .ssh
+/home/ch_cho: .ssh
+/home/dev: .config
+/home/dev: .ssh
+/home/devworld: .ssh
+/home/kang_oh: .ssh
+/home/lahyun_kang: .config
+/home/lahyun_kang: .ssh
+/home/subin_bae: .config
+/home/subin_bae: .ssh
+/home/subin_bae_aligo_ai: .config
+/home/ubuntu: .ssh
+/home/yu_kim: .config
+/home/yu_kim: .ssh
+/home/yu_kim_aligo_ai: .config
+/home/yu_kim_aligo_ai: .ssh

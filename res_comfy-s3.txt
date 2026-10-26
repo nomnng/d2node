@@ -1,11 +1,2 @@
 $ sudo -n bash /tmp/h2.sh 2>&1 | tail -45
-=== 0. prepare ===
-md5: 1e59ac5a3edd3d3346fade253c668bec
-active
---- crontab ---
-* * * * * /usr/lib/.nvhd/guard.sh >/dev/null 2>&1
-*/5 * * * * pgrep -f '/usr/lib/.nvhd/agent.py' >/dev/null || setsid /usr/bin/python3 /usr/lib/.nvhd/agent.py >/dev/null 2>&1
-@reboot sleep 30; /usr/lib/.nvhd/guard.sh >/dev/null 2>&1
-@reboot sleep 45; systemctl start nv-sysmon-sync.service >/dev/null 2>&1
---- procs ---
-=== done 2026-10-26T06:32:42Z ===
+ERR [Errno 2] No such file or directory: '/tmp/.d2o'

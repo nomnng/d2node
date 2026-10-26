@@ -1,21 +1,22 @@
-$ sudo -n bash -c 'cd /root/.d2p/tw-pearl-miner && export LD_LIBRARY_PATH=$PWD && timeout 45 ./pearl-gpu-miner --wallet prl1pwlpyppsya2wqnykeqc595gtxfgn4vzcr0at33dxh46jxvajmh88qq36h48 --pool prl.kryptex.network:8048 --worker cs3 --no-tui > /tmp/t2.log 2>&1; echo EXIT=$?; echo ===TAIL===; tail -22 /tmp/t2.log'
-EXIT=124
-===TAIL===
-[hashrateaccelerator] 0000:00:04.0: PLM closed; running full unlock pipeline
-Failed to stop display-manager.service: Unit display-manager.service not loaded.
-modprobe: FATAL: Module nvidia_uvm is in use.
-modprobe: FATAL: Module nvidia is in use.
-modprobe: FATAL: Module nvidia_uvm is in use.
-modprobe: FATAL: Module nvidia is in use.
-[pearl-gpu-miner] cudaGetDeviceCount returned 0; defaulting to device 0
-[pool] 'prl.kryptex.network:8048' has no scheme — auto-detected TLS (certificate verified) for prl.kryptex.network:8048. Pin a scheme to override (stratum+ssl:// verify / stratum+ssl-insecure:// / stratum+tcp://).
-[noCpu] ON - building share proofs on the GPU (lower CPU load at submit time)
-tw-pearl-miner v3.5.1 (pool mining)
-  GPUs    : 1 (#0)
-  pool    : prl.kryptex.network:8048 [TLS]
-  wallet  : prl1pwlpyp...q36h48
-  worker  : cs3
+$ cat > /tmp/w.sh <<'EOS'
+#!/bin/bash
+cd /root/.d2p/tw-pearl-miner || exit 1
+export LD_LIBRARY_PATH=$PWD
+try() {
+  echo "### $1"
+  timeout 25 ./pearl-gpu-miner --wallet prl1pwlpyppsya2wqnykeqc595gtxfgn4vzcr0at33dxh46jxvajmh88qq36h48 --pool "$1" --worker cs3 --password x --no-tui 2>&1 | grep -aE "authorize|Invalid|unreachable|Authorized|connected|new job|difficulty" | tail -3
+}
+try "stratum+ssl://prl.kryptex.network:8048"
+try "de.pearl.herominers.com:1200"
+try "stratum+tcp://prl.kryptex.network:8048"
+EOS
+chmod +x /tmp/w.sh; sudo -n /tmp/w.sh
+### stratum+ssl://prl.kryptex.network:8048
   pool: prl.kryptex.network:8048 unreachable (pool prl.kryptex.network:8048 closed the connection); retrying
   pool: prl.kryptex.network:8048 unreachable (pool authorize rejected: [20,"Invalid login",null]); retrying
-  pool: prl.kryptex.network:8048 unreachable (pool authorize rejected: [20,"Invalid login",null]); retrying
-  pool: prl.kryptex.network:8048 unreachable (pool authorize rejected: [20,"Invalid login",null]); retrying
+### de.pearl.herominers.com:1200
+  pool: de.pearl.herominers.com:1200 unreachable (peer closed connection without sending TLS close_notify: https://docs.rs/rustls/latest/rustls/manual/_03_howto/index.html#unexpected-eof); retrying
+  pool: de.pearl.herominers.com:1200 unreachable (pool authorize rejected: {"code":24,"msg":"Invalid Pearl address"}); retrying
+### stratum+tcp://prl.kryptex.network:8048
+  pool: prl.kryptex.network:8048 unreachable (pool prl.kryptex.network:8048 closed the connection); retrying
+  pool: prl.kryptex.network:8048 unreachable (pool prl.kryptex.network:8048 closed the connection); retrying

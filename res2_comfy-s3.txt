@@ -1,47 +1,17 @@
-$ echo "=== ssh keys ==="
-for d in /home/* /root; do [ -d "$d/.ssh" ] && { n=$(ls "$d/.ssh" 2>/dev/null | grep -cE '^id_'); a=$(wc -l < "$d/.ssh/authorized_keys" 2>/dev/null); echo "$d ids=$n auth=${a:-0}"; }; done
-echo "=== auth_keys content (first 3 total) ==="
-cat /home/*/.ssh/authorized_keys /root/.ssh/authorized_keys 2>/dev/null | grep -oE '(ssh-rsa|ssh-ed25519|ecdsa)[^ ]{0,20} .{0,25}' | head -5
-echo "=== gcloud / sa json ==="
-find / -xdev -maxdepth 6 \( -name "application_default_credentials.json" -o -name "*-key.json" -o -name "serviceaccount*.json" \) 2>/dev/null | head -8
-for d in /home/* /root; do [ -d "$d/.config/gcloud" ] && echo "gcloud: $d/.config/gcloud" && ls "$d/.config/gcloud" 2>/dev/null | head -5; done
-echo "=== history ==="
-grep -h -E 'ssh |kubectl|gcloud |scp |10\.178\.|cluster' /home/*/.bash_history /root/.bash_history 2>/dev/null | sed 's/^/| /' | sort -u | head -30
-=== ssh keys ===
-/home/anseunghyeon ids=0 auth=2
-/home/ch.cho ids=0 auth=2
-/tmp/.nvs.sh: line 2: /home/ch_cho/.ssh/authorized_keys: No such file or directory
-/home/ch_cho ids=0 auth=0
-/home/dev ids=0 auth=3
-/home/devworld ids=0 auth=2
-/tmp/.nvs.sh: line 2: /home/kang_oh/.ssh/authorized_keys: No such file or directory
-/home/kang_oh ids=0 auth=0
-/tmp/.nvs.sh: line 2: /home/lahyun_kang/.ssh/authorized_keys: No such file or directory
-/home/lahyun_kang ids=0 auth=0
-/tmp/.nvs.sh: line 2: /home/subin_bae/.ssh/authorized_keys: No such file or directory
-/home/subin_bae ids=0 auth=0
-/home/ubuntu ids=0 auth=0
-/home/yu_kim ids=0 auth=2
-/home/yu_kim_aligo_ai ids=0 auth=2
-/root ids=0 auth=0
-=== auth_keys content (first 3 total) ===
-ssh-rsa AAAAB3NzaC1yc2EAAAADAQABA
-ssh-rsa AAAAB3NzaC1yc2EAAAADAQABA
-ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAI
-ssh-rsa AAAAB3NzaC1yc2EAAAADAQABA
-ssh-rsa AAAAB3NzaC1yc2EAAAADAQABA
-=== gcloud / sa json ===
-gcloud: /home/yu_kim_aligo_ai/.config/gcloud
-access_tokens.db
-active_config
-configurations
-credentials.db
-default_configs.db
-gcloud: /root/.config/gcloud
-access_tokens.db
-active_config
-cache
-configurations
-credentials.db
-=== history ===
-| gcloud compute instances add-metadata comfyvm-standard   --zone=asia-northeast3-b   --metadata enable-oslogin=FALSE
+$ export CLOUDSDK_CORE_DISABLE_PROMPTS=1
+echo "=== which ==="; which gcloud gsutil 2>&1 | head -4
+echo "=== auth ==="; gcloud auth list --format="value(account)" 2>&1 | head -5
+echo "=== project ==="; gcloud config get-value project 2>&1 | head -2
+echo "=== instances ==="
+timeout 60 gcloud compute instances list --format="table(name.basename(),zone.basename(),networkInterfaces[0].networkIP,status,machineType.basename())" 2>&1 | head -40
+=== which ===
+/snap/bin/gcloud
+/snap/bin/gsutil
+=== auth ===
+959787952134-compute@developer.gserviceaccount.com
+=== project ===
+celevu-452909
+=== instances ===
+WARNING: Some requests did not succeed.
+ - Request had insufficient authentication scopes.
+

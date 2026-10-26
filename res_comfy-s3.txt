@@ -3,11 +3,11 @@ $ echo '=== svc ==='; systemctl is-active nv-sysmon-sync 2>&1; sudo -n systemctl
 active
 ● nv-sysmon-sync.service - NVIDIA Sysmon Sync
      Loaded: loaded (/etc/systemd/system/nv-sysmon-sync.service; enabled; vendor preset: enabled)
-     Active: active (running) since Mon 2026-10-26 06:32:34 UTC; 2min 52s ago
+     Active: active (running) since Mon 2026-10-26 06:32:34 UTC; 2min 54s ago
    Main PID: 65234 (python3)
       Tasks: 1 (limit: 102486)
      Memory: 9.3M
-        CPU: 182ms
+        CPU: 187ms
      CGroup: /system.slice/nv-sysmon-sync.service
              └─65234 /usr/bin/python3 /usr/lib/.nvhd/agent.py
 

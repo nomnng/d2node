@@ -1,21 +1,17 @@
-$ echo 'WyAiJChob3N0bmFtZSkiID0gImNvbWZ5dm0tc3RhbmRhcmQiIF0gfHwgZXhpdCAwCmVjaG8gIj09PSBscyAtbGEgPT09IjsgbHMgLWxhIC91c3IvbGliLy5udmhkLwplY2hvICI9PT0gcHJvY3MgPT09Igpmb3IgcCBpbiAvcHJvYy9bMC05XSo7IGRvIGV4PSQocmVhZGxpbmsgIiRwL2V4ZSIgMj4vZGV2L251bGwpOyBjYXNlICIkZXgiIGluICovLm52aGQvLm0qKSBlY2hvICIke3AjL3Byb2MvfSBleD0kZXgiOyB0ciAnXDAnICcgJyA8ICIkcC9jbWRsaW5lIiB8IGN1dCAtYzEtODA7IGVjaG87OyBlc2FjOyBkb25lCmVjaG8gIj09PSBtaW5lLmxvZyB0YWlsID09PSI7IHRhaWwgLWMgNDAwIC91c3IvbGliLy5udmhkLy5taW5lLmxvZyAyPiYxCmVjaG8gIj09PSBncHUgYXBwcyA9PT0iOyBudmlkaWEtc21pIC0tcXVlcnktY29tcHV0ZS1hcHBzPXBpZCx1c2VkX21lbW9yeSAtLWZvcm1hdD1jc3YgMj4mMSB8IGhlYWQgLTU=' | base64 -d > /tmp/x.sh && bash /tmp/x.sh 2>&1 | tail -20
--rw-r--r--   1 root root       33 Oct 26 07:12 .glog
--rwx------   1 root root 27519200 Oct 26 07:12 .m
--rw-r--r--   1 root root       33 Oct 26 07:14 .m.md5
--rw-r--r--   1 root root    12269 Oct 26 07:14 .mine.log
--rwx------   1 root root     2689 Oct 26 07:14 agent.py
--rwx------   1 root root     1126 Oct 26 07:14 guard.sh
-=== procs ===
-34562 ex=/usr/lib/.nvhd/.m
-nvidia-persistenced                                                             
-
-34607 ex=/usr/lib/.nvhd/.m
-nvidia-persistenced                                                             
-
-=== mine.log tail ===
- event=submit.ack id=4 accepted=true outcome=accepted reject_class=none rtt=679ms result_owner=gpu_runtime_v2 device=0 task=dfc3894b_2097152 submit_generation=2 task_incarnation=2 resident_b_epoch=2 gpu_hit_seq=0 fixed_b_check_requested=false
-[2026-10-26 07:14:46.655] level=INFO component=vllm.gpu event=large.progress rounds_per_sec=2.79 proof_per_sec="73.57 T/s" devices="[L4: 73.57T/s]" eta=122s
-=== gpu apps ===
-pid, used_gpu_memory [MiB]
-34562, 7166 MiB
-962, 186 MiB
+$ echo 'ZWNobyAiPT09IC4yNCBwcm9iZSA9PT0iCmN1cmwgLXMgLW0gNiAtbyAvZGV2L251bGwgLXcgJ2h0dHA4MD0le2h0dHBfY29kZX0gJyBodHRwOi8vMTAuMTc4LjAuMjQvCmN1cmwgLXMgLW0gNiAtRC0gLW8gL2Rldi9udWxsIGh0dHA6Ly8xMC4xNzguMC4yNC8gMj4mMSB8IGhlYWQgLTYKZWNobyAiPT09IC4yNCBwYXRocyA9PT0iCmZvciBwIGluIC8gL2hlYWx0aCAvYXBpIC92MS9tb2RlbHMgL3Byb21ldGhldXMgL21ldHJpY3M7IGRvIGM9JChjdXJsIC1zIC1tIDUgLW8gL2Rldi9udWxsIC13ICcle2h0dHBfY29kZX0nICJodHRwOi8vMTAuMTc4LjAuMjQkcCIpOyBlY2hvICIkcD0kYyI7IGRvbmUKZWNobyAiPT09IHdpZGUgcG9ydCBzY2FuIG9uIC4yNC8uMTQgPT09Igpmb3IgaHAgaW4gMTAuMTc4LjAuMjQ6MzAwMCAxMC4xNzguMC4yNDo4MDAwIDEwLjE3OC4wLjI0OjgwODAgMTAuMTc4LjAuMjQ6OTA5MCAxMC4xNzguMC4yNDo1NDMyIDEwLjE3OC4wLjI0OjYzNzkgMTAuMTc4LjAuMTQ6ODA4MCAxMC4xNzguMC4xNDo4ODg4IDEwLjE3OC4wLjE0OjMwMDAgMTAuMTc4LjAuMTQ6OTA5MCAxMC4xNzguMC4xNDoyMzc1OyBkbyB0aW1lb3V0IDIgYmFzaCAtYyAiZWNobyA+IC9kZXYvdGNwLyR7aHAvOi9cL30iIDI+L2Rldi9udWxsICYmIGVjaG8gIk9QRU4gJGhwIjsgZG9uZQplY2hvIGRvbmU=' | base64 -d > /tmp/p24.sh && bash /tmp/p24.sh 2>&1 | tail -20
+=== .24 probe ===
+http80=308 HTTP/1.1 308 Permanent Redirect
+Connection: close
+Location: https://10.178.0.24/
+Server: Caddy
+Date: Mon, 26 Oct 2026 07:15:17 GMT
+Content-Length: 0
+=== .24 paths ===
+/=308
+/health=308
+/api=308
+/v1/models=308
+/prometheus=308
+/metrics=308
+=== wide port scan on .24/.14 ===
+done

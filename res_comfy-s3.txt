@@ -16,4 +16,3 @@ chmod +x /tmp/v.sh; sudo -n /tmp/v.sh
 === --pool prl.kryptex.network:8048 --worker cs3
 === --pool prl.kryptex.network:8048 --worker cs3 --password x
 === --pool stratum+ssl://prl.kryptex.network:8048 --worker cs3
-Terminated

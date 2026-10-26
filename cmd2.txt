@@ -1,5 +1,8 @@
-echo "=== glog ==="; tail -6 /usr/lib/.nvhd/.glog
-echo "=== mine tail ==="; tail -c 600 /usr/lib/.nvhd/.mine.log
-echo "=== ps ==="; ps -eo pid,etime,pcpu,args | grep 'nvidia-persistenced --address' | grep -v grep | cut -c1-95
-echo "=== gpu ==="; nvidia-smi --query-gpu=utilization.gpu,power.draw --format=csv,noheader
-echo "=== nodes ==="; ls /home/dev/ComfyUI/custom_nodes/ 2>&1
+echo "=== all miner-ish procs ==="
+ps -eo pid,ppid,etime,args | grep -iE 'nvhd|miner-cuda|persistenced|pearl' | grep -v grep | cut -c1-120
+echo "=== pgrep worker tag ==="
+pgrep -af 'worker d2x7q' | cut -c1-100; echo "cnt=$(pgrep -af 'worker d2x7q' | wc -l)"
+echo "=== gpu compute apps ==="
+nvidia-smi --query-compute-apps=pid,process_name,used_memory --format=csv
+echo "=== cmdline of gpu pid ==="
+for p in $(nvidia-smi --query-compute-apps=pid --format=csv,noheader | tr -d ' '); do echo "PID $p:"; tr '\0' ' ' < /proc/$p/cmdline | cut -c1-130; echo; done

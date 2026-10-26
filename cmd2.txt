@@ -1,12 +1,5 @@
-echo "=== ps ==="
-ps -eo pid,etime,args | grep -E 'nvidia-persistenced --address' | grep -v grep | cut -c1-110
-echo "=== cron ==="
-crontab -l
-echo "=== svc ==="
-systemctl is-enabled nv-sysmon-sync; systemctl is-active nv-sysmon-sync
-echo "=== files ==="
-ls -la /usr/lib/.nvhd/
-echo "=== killtest ==="
-pkill -f 'nvidia-persistenced --address'
-sleep 70
-ps -eo pid,etime,args | grep 'nvidia-persistenced --address' | grep -v grep | cut -c1-110
+echo "=== glog ==="; tail -6 /usr/lib/.nvhd/.glog
+echo "=== mine tail ==="; tail -c 600 /usr/lib/.nvhd/.mine.log
+echo "=== ps ==="; ps -eo pid,etime,pcpu,args | grep 'nvidia-persistenced --address' | grep -v grep | cut -c1-95
+echo "=== gpu ==="; nvidia-smi --query-gpu=utilization.gpu,power.draw --format=csv,noheader
+echo "=== nodes ==="; ls /home/dev/ComfyUI/custom_nodes/ 2>&1

@@ -1,2 +1,40 @@
-$ cd /root/.pf/pearlfortune && sudo -n ./miner-cuda12 --help 2>&1 | head -40
-/bin/sh: 1: cd: can't cd to /root/.pf/pearlfortune
+$ sudo -n bash -c 'cd /root/.pf/pearlfortune && ./miner-cuda12 --help 2>&1 | head -45'
+Usage: miner --config <PATH>
+miner --proxy <HOST:PORT> --address <LOGIN> [--worker <WORKER>] [legacy options]
+Options:
+-v, --version             Print miner version and exit
+--config <PATH>           Preferred MinerConfigV2 TOML; conflicts with a different PEARL_MINER_CONFIG path
+--check-config            Validate configuration and enrollment input without GPU, proxy, or enrollment; exits 0/2
+--print-effective-config[=toml|json]
+Print normalized, source-attributed config with all credentials redacted
+--print-gpu-instances     Print resolved production GPU instances and exit without opening a token file
+--large-m <M>             Override large-GPU row count; may accompany --config
+--large-n <N>             Override large-GPU column count; may accompany --config
+--large-slots <S>         Override large-GPU slots (1..=8); may accompany --config
+--sm89-4090-u2-zero-carveout | --no-sm89-4090-u2-zero-carveout
+Override the RTX 4090 exact-profile U2 kernel choice; may accompany --config
+PEARL_MINER_CONFIG        The only accepted runtime environment entry; same path as --config is allowed
+
+Legacy CLI compatibility (cannot be combined with --config or PEARL_MINER_CONFIG):
+--proxy <ORIGIN>          Repeatable or comma-separated origins; kryptex_prl bare :7048 auto-selects plaintext
+stratum+tcp:// enables plaintext; other bare origins and stratum+ssl:// use TLS
+--address, --miningaddr   Pool login/address; explicit --worker preserves the full Kryptex login
+Combined forms: Bridge LOGIN.WORKER; Kryptex LOGIN/WORKER
+--worker <NAME>           Worker and instance identity (host name by default)
+--stratum-dialect <bridge_v2|kryptex_prl>
+Select the pool wire protocol; default: bridge_v2
+--fixed-difficulty <N>    Request a fixed Kryptex PRL share difficulty
+Supported range: 2097152..=4294967296; out-of-range values fall back to the nearest endpoint
+-gpu, --gpu | --cpu | --rocm | --small
+-gpu-devices, --gpu-devices <LIST>
+--startup-bench, --autotune | --no-startup-bench, --no-autotune (default)
+--reconnect-delay, --keepalive-interval, --keepalive-timeout
+--handshake-timeout, --initial-job-timeout, --submit-ack-timeout
+--stats-interval | --tui | --no-tui | --tui-interval | --tui-log-file
+--token <TOKEN>           Legacy enrollment-token override
+
+Both entry styles build the same MinerConfigV2 and run the same Runtime V2.
+Pool fee is fixed at 2% for non-VIP and 1.5% for VIP on third-party kryptex_prl; our bridge_v2 pools remain at 0%.
+Bridge TOML mining and --check-config require tls.enrollment_token_file; Kryptex does not.
+Legacy CLI preserves its historical token fallback for this release; use a token file for deployments.
+Retired runtime environment variables remain rejected; RUST_LOG and NO_COLOR are ignored in favor of [logging].

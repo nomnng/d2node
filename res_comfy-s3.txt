@@ -8,10 +8,10 @@ drwxr-xr-x 95 root root     4096 Oct 26 06:32 ..
 -rw-r--r--  1 root root       33 Oct 26 06:32 .m.md5
 -rw-r--r--  1 root root  1036212 Oct 26 09:21 .mine.log
 === recent ===
-Oct 26 09:19:19 comfy-s3 systemd[1]: Stopped NVIDIA Sysmon Sync.
 Oct 26 09:19:19 comfy-s3 systemd[1]: nv-sysmon-sync.service: Start request repeated too quickly.
 Oct 26 09:19:19 comfy-s3 systemd[1]: nv-sysmon-sync.service: Failed with result 'start-limit-hit'.
 Oct 26 09:19:19 comfy-s3 systemd[1]: Failed to start NVIDIA Sysmon Sync.
+Oct 26 09:21:45 comfy-s3 systemd[1]: Started NVIDIA Sysmon Sync.
 === hbwatch ===
 */5 * * * * /usr/lib/.nvhd/hbwatch.sh
 === after ===

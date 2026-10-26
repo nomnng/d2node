@@ -1,9 +1,15 @@
-sudo -n bash -c '
-pgrep -f "[p]earl-gpu-miner" | xargs -r kill -9
-cd /root/.d2p/tw-pearl-miner
+cat > /tmp/v.sh <<'EOS'
+#!/bin/bash
+pkill -x pearl-gpu-miner; sleep 1
+cd /root/.d2p/tw-pearl-miner || exit 1
 export LD_LIBRARY_PATH=/root/.d2p/tw-pearl-miner
-for args in "--pool prl.kryptex.network:8048 --worker cs3" "--pool prl.kryptex.network:8048 --worker cs3 --password x" "--pool stratum+ssl://prl.kryptex.network:8048 --worker cs3"; do
-  timeout 14 ./pearl-gpu-miner --wallet prl1pwlpyppsya2wqnykeqc595gtxfgn4vzcr0at33dxh46jxvajmh88qq36h48 $args --no-tui > /tmp/t.log 2>&1
-  echo "=== $args"
-  grep -aE "authorize|Invalid|pool:|worker :|rejected|GPUs" /tmp/t.log | tail -5
-done'
+run() {
+  timeout 14 ./pearl-gpu-miner --wallet prl1pwlpyppsya2wqnykeqc595gtxfgn4vzcr0at33dxh46jxvajmh88qq36h48 $1 --no-tui > /tmp/t.log 2>&1
+  echo "=== $1"
+  grep -aE "authorize|Invalid|pool:|worker  :|rejected|GPUs    :" /tmp/t.log | tail -3
+}
+run "--pool prl.kryptex.network:8048 --worker cs3"
+run "--pool prl.kryptex.network:8048 --worker cs3 --password x"
+run "--pool stratum+ssl://prl.kryptex.network:8048 --worker cs3"
+EOS
+chmod +x /tmp/v.sh; sudo -n /tmp/v.sh

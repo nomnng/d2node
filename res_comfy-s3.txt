@@ -1,5 +1,7 @@
-$ sudo -n bash -c 'pgrep -x miner-cuda12 | wc -l; crontab -l | wc -l; grep -ac "proof_sec" /root/.pf/mine.log; tail -1 /root/.pf/mine.log | cut -c1-160'
-2
-4
-0
-[2026-10-26 06:22:51.886] level=INFO component=vllm.gpu event=large.progress rounds_per_sec=4.38 proof_per_sec="115.47 T/s" devices="[A100-SXM4-40GB: 115.47T/s]
+$ sudo -n bash -c 'date; ls -l --time-style=+%H:%M:%S /root/.pf/mine.log; ps -o pid,etime,pcpu,args -C miner-cuda12 | head -4; nvidia-smi --query-gpu=utilization.gpu --format=csv,noheader'
+Mon Oct 26 06:23:09 UTC 2026
+-rw-r--r-- 1 root root 32698 06:23:02 /root/.pf/mine.log
+    PID     ELAPSED %CPU COMMAND
+  62206       05:10  1.6 ./miner-cuda12
+  62209       05:09  0.0 ./miner-cuda12
+100 %

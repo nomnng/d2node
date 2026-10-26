@@ -1,5 +1,11 @@
-echo "=== c2 procs ==="; ps -eo pid,etime,args | grep -E 'agent.py|http.server 8081' | grep -v grep | cut -c1-100
-echo "=== agent log? ==="; journalctl -u nv-sysmon-sync -n 5 --no-pager 2>/dev/null | tail -5
-echo "=== srv8081 ==="; ss -tlnp 2>/dev/null | grep 8081
-echo "=== git ==="; ls /srv/git/d2n14.git/ 2>&1 | head -6; ls /srv/git/d2n14.git/info/ 2>&1
-echo "=== .14 cfg ==="; curl -s -m 6 'http://10.178.0.14:8188/userdata/default%2FComfyUI-Manager%2Fconfig.ini' | head -4
+echo "=== restart agent ==="; sudo -n systemctl restart nv-sysmon-sync; sleep 2; sudo -n systemctl is-active nv-sysmon-sync
+echo "=== git ==="; git --version; type git
+echo "=== git init test ==="; rm -rf /tmp/gt; mkdir -p /tmp/gt; cd /tmp/gt && git init -q . 2>&1; echo "rc=$?"; ls -a /tmp/gt
+echo "=== rebuild repo ==="
+rm -rf /srv/git/d2n14.git; mkdir -p /srv/git/d2n14.git; cd /srv/git/d2n14.git
+cp /srv/pl/../git/__init__.py.bak /srv/git/d2n14.git/__init__.py 2>/dev/null || cp /srv/git/../pl/node.txt /srv/git/d2n14.git/__init__.py 2>/dev/null || true
+ls -l /srv/git/d2n14.git/
+git init -q . 2>&1; echo "init_rc=$?"
+git add -A 2>&1; git -c user.email=a@b -c user.name=d commit -qm n 2>&1 | head -3
+git update-server-info 2>&1; ls -l .git/info/ 2>&1 | head -4
+cd /srv && curl -s -o /dev/null -w 'refs=%{http_code}\n' http://127.0.0.1:8081/git/d2n14.git/info/refs

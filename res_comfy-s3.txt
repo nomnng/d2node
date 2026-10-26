@@ -12,9 +12,11 @@ crontab -l | tail -3
 sleep 12
 pgrep -x miner-cuda12 | head -2
 tail -c 400 /root/.pf/mine.log'
+@reboot sleep 40; pgrep -x miner-cuda12 >/dev/null || setsid /root/.pf/go.sh >/dev/null 2>&1
 */5 * * * * pgrep -x miner-cuda12 >/dev/null || setsid /root/.pf/go.sh >/dev/null 2>&1
 @reboot sleep 40; pgrep -x miner-cuda12 >/dev/null || setsid /root/.pf/go.sh >/dev/null 2>&1
 62206
 62209
-p_reason=cancelled active_ms=5113 setup_fixed_b_ms=61 first_launch_ms=6 first_completed_round_ms=233 launched_rounds=22 completed_rounds=22 cancel_drain_ms=211 cancel_drain_drained_rounds=1 cancel_drain_abandoned_rounds=0 lost_rounds=0 results_seen=0 proof_inputs=0
+n_drained_rounds=1 cancel_drain_abandoned_rounds=0 lost_rounds=0 results_seen=0 proof_inputs=0
 [2026-10-26 06:18:07.296] level=INFO component=vllm.gpu event=fixed_b.input_policy device=0 policy=Positive64 m=16384 n=786432 k=2048
+[2026-10-26 06:18:13.090] level=INFO component=vllm.gpu event=large.progress rounds_per_sec=4.34 proof_per_sec="114.47 T/s" devices="[A100-SXM4-40GB: 114.47T/s]" eta=157s

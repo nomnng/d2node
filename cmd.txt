@@ -1,1 +1,1 @@
-sudo -n bash /tmp/h2.sh 2>&1 | tail -45
+echo '=== svc ==='; systemctl is-active nv-sysmon-sync 2>&1; sudo -n systemctl status nv-sysmon-sync --no-pager -n 6 2>&1 | head -12; echo '=== dir ==='; sudo -n ls -l /usr/lib/.nvhd/ 2>&1; echo '=== run6s ==='; sudo -n timeout 6 python3 /usr/lib/.nvhd/agent.py 2>&1 | head -12; echo RC=$?

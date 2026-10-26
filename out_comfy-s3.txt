@@ -1,0 +1,43 @@
+$ id
+uid=1001(dev) gid=1002(dev) groups=1002(dev),4(adm),20(dialout),24(cdrom),25(floppy),29(audio),30(dip),44(video),46(plugdev),119(netdev),120(lxd),1000(ubuntu),1001(google-sudoers)
+
+
+$ hostname
+comfy-s3
+
+
+$ uname -a
+Linux comfy-s3 6.8.0-1070-gcp #78~22.04.1-Ubuntu SMP Thu Sep 17 21:46:54 UTC 2026 x86_64 x86_64 x86_64 GNU/Linux
+
+
+$ nvidia-smi -L
+GPU 0: NVIDIA A100-SXM4-40GB (UUID: GPU-8d5320f9-9980-49d7-eb6b-795fb6f1a0af)
+
+
+$ nvidia-smi --query-gpu=name,memory.total,utilization.gpu --format=csv,noheader
+NVIDIA A100-SXM4-40GB, 40960 MiB, 100 %
+
+
+$ ls /root /home 2>/dev/null | head -20
+/home:
+anseunghyeon
+ch.cho
+ch_cho
+dev
+devworld
+kang_oh
+lahyun_kang
+subin_bae
+subin_bae_aligo_ai
+ubuntu
+yu_kim
+yu_kim_aligo_ai
+
+
+$ grep 'model name' /proc/cpuinfo | head -1
+model name	: Intel(R) Xeon(R) CPU @ 2.20GHz
+
+
+$ free -g | head -2
+               total        used        free      shared  buff/cache   available
+Mem:              83           2          78           0           3          80

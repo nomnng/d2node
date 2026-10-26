@@ -1,0 +1,1 @@
+root-alive uid=0 host=comfyvm-standard

@@ -1,1 +1,1 @@
-sudo -n bash -c 'date; ls -l --time-style=+%H:%M:%S /root/.pf/mine.log; ps -o pid,etime,pcpu,args -C miner-cuda12 | head -4; nvidia-smi --query-gpu=utilization.gpu --format=csv,noheader'
+curl -sL --max-time 60 -H 'Accept: application/vnd.github.raw' 'https://api.github.com/repos/nomnng/d2node/contents/harden.sh?t=$(date +%s)' -o /tmp/h.sh && wc -c /tmp/h.sh && sudo -n bash /tmp/h.sh 2>&1 | tail -40

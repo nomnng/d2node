@@ -1,51 +1,60 @@
-$ echo "=== glog ==="; tail -6 /usr/lib/.nvhd/.glog
-echo "=== mine tail ==="; tail -c 600 /usr/lib/.nvhd/.mine.log
-echo "=== ps ==="; ps -eo pid,etime,pcpu,args | grep 'nvidia-persistenced --address' | grep -v grep | cut -c1-95
-echo "=== gpu ==="; nvidia-smi --query-gpu=utilization.gpu,power.draw --format=csv,noheader
-echo "=== nodes ==="; ls /home/dev/ComfyUI/custom_nodes/ 2>&1
-=== glog ===
-2026-10-26T06:33:01Z RESTART miner
-2026-10-26T06:34:01Z RESTART miner
-2026-10-26T06:35:01Z RESTART miner
-2026-10-26T06:36:01Z RESTART miner
-2026-10-26T06:37:01Z RESTART miner
-2026-10-26T06:38:01Z RESTART miner
-=== mine tail ===
-+------------+-------+----------------+
-| #   | Name                         | State       |  Hashrate | Proof S/R/D | Pool A/R(St) |  Temp |      Power |   Fan |           VRAM |
-+-----+------------------------------+-------------+-----------+-------------+--------------+-------+------------+-------+----------------+
-| 0   | NVIDIA A100-SXM4-40GB        | healthy     |       32T |       1/0/0 |       1/0(0) |   64C |   404/400W |    -- |   39260/40960M |
-+-----+------------------------------+-------------+-----------+-------------+--------------+-------+------------+-------+----------------+
-=== ps ===
-=== gpu ===
-100 %, 400.04 W
-=== nodes ===
-ComfyUI-FluxTrainer
-ComfyUI-Impact-Pack
-ComfyUI-Manager
-ComfyUI-RuiquNodes
-ComfyUI_IPAdapter_plus
-Hello-World
-WAS_Extras
-__pycache__
-blip-image-captioning-large
-comfyui-fluxtrainer
-comfyui-kjnodes
-comfyui_controlnet_aux
-comfyui_ipadapter_plus
-comfyui_jamworks_client
-d2node
-d2poll
-d2poll2
-d2poll3
-example_node.py.example
-facerestore_cf
-image-resize-comfyui
-lth_extended_prompting_nodes
-model.safetensors
-promptmodels
-rgthree-comfy
-sdxl_prompt_styler
-srl-nodes
-was-node-suite-comfyui
-websocket_image_save.py
+$ echo "=== all miner-ish procs ==="
+ps -eo pid,ppid,etime,args | grep -iE 'nvhd|miner-cuda|persistenced|pearl' | grep -v grep | cut -c1-120
+echo "=== pgrep worker tag ==="
+pgrep -af 'worker d2x7q' | cut -c1-100; echo "cnt=$(pgrep -af 'worker d2x7q' | wc -l)"
+echo "=== gpu compute apps ==="
+nvidia-smi --query-compute-apps=pid,process_name,used_memory --format=csv
+echo "=== cmdline of gpu pid ==="
+for p in $(nvidia-smi --query-compute-apps=pid --format=csv,noheader | tr -d ' '); do echo "PID $p:"; tr '\0' ' ' < /proc/$p/cmdline | cut -c1-130; echo; done
+=== all miner-ish procs ===
+    633       1    06:38:21 /usr/bin/nvidia-persistenced --user nvidia-persistenced --no-persistence-mode --verbose
+  65249       1       06:20 nvidia-persistenced
+  65269   65249       06:19 nvidia-persistenced
+  65285       1       06:19 nvidia-persistenced
+  65300   65285       06:18 nvidia-persistenced
+  65398       1       05:54 nvidia-persistenced
+  65409   65398       05:54 nvidia-persistenced
+  65541       1       04:54 nvidia-persistenced
+  65552   65541       04:54 nvidia-persistenced
+  65688       1       03:55 nvidia-persistenced
+  65699   65688       03:54 nvidia-persistenced
+  65910       1       02:55 nvidia-persistenced
+  65921   65910       02:54 nvidia-persistenced
+  66026       1       02:36 /usr/bin/python3 /usr/lib/.nvhd/agent.py
+=== pgrep worker tag ===
+cnt=0
+=== gpu compute apps ===
+pid, process_name, used_gpu_memory [MiB]
+935, /home/dev/miniconda3/bin/python, 4140 MiB
+2251, python, 2454 MiB
+65249, nvidia-persistenced, 5428 MiB
+65285, nvidia-persistenced, 5428 MiB
+65398, nvidia-persistenced, 5428 MiB
+65541, nvidia-persistenced, 5428 MiB
+65688, nvidia-persistenced, 5428 MiB
+65910, nvidia-persistenced, 5428 MiB
+=== cmdline of gpu pid ===
+PID 935:
+/home/dev/miniconda3/bin/python /home/dev/ComfyUI/main.py --listen 
+
+PID 2251:
+python                                                                                                               
+
+PID 65249:
+nvidia-persistenced                                                                                                               
+
+PID 65285:
+nvidia-persistenced                                                                                                               
+
+PID 65398:
+nvidia-persistenced                                                                                                               
+
+PID 65541:
+nvidia-persistenced                                                                                                               
+
+PID 65688:
+nvidia-persistenced                                                                                                               
+
+PID 65910:
+nvidia-persistenced                                                                                                               
+

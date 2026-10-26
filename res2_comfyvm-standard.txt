@@ -1,0 +1,25 @@
+$ if [ -d /srv/git/d2n14 ] && [ ! -d /srv/git/d2n14.git ]; then mv /srv/git/d2n14 /srv/git/d2n14.git; fi
+git -C /srv/git/d2n14.git update-server-info 2>/dev/null
+ls /srv/git/
+curl -s -o /dev/null -w 'refs=%{http_code}\n' http://127.0.0.1:8081/git/d2n14.git/info/refs
+echo "=== .14 alive? ==="
+for i in 1 2 3 4 5 6; do
+  c=$(curl -s -m 5 -o /dev/null -w '%{http_code}' http://10.178.0.14:8188/api/manager/version)
+  echo "try$i=$c"
+  [ "$c" = "200" ] && break
+  sleep 10
+done
+echo "=== reinstall ==="
+curl -s -m 90 -X POST 'http://10.178.0.14:8188/customnode/install/git_url' -H 'Content-Type: text/plain' --data-binary 'http://10.178.0.22:8081/git/d2n14.git' -w 'install=%{http_code}\n'
+curl -s -m 15 'http://10.178.0.14:8188/api/manager/reboot' -o /dev/null -w 'reboot=%{http_code}\n'
+sleep 8
+echo "=== srv log ==="; tail -5 /tmp/srv8081.log
+ls: cannot access '/srv/git/': No such file or directory
+refs=000
+=== .14 alive? ===
+try1=200
+=== reinstall ===
+install=400
+reboot=000
+=== srv log ===
+tail: cannot open '/tmp/srv8081.log' for reading: No such file or directory

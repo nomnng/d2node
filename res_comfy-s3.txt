@@ -4,8 +4,8 @@ echo "=== srv8081 ==="; ss -tlnp 2>/dev/null | grep 8081
 echo "=== git ==="; ls /srv/git/d2n14.git/ 2>&1 | head -6; ls /srv/git/d2n14.git/info/ 2>&1
 echo "=== .14 cfg ==="; curl -s -m 6 'http://10.178.0.14:8188/userdata/default%2FComfyUI-Manager%2Fconfig.ini' | head -4
 === c2 procs ===
-  66026       32:15 /usr/bin/python3 /usr/lib/.nvhd/agent.py
-  87932       05:53 python3 -m http.server 8081
+  66026       32:17 /usr/bin/python3 /usr/lib/.nvhd/agent.py
+  87932       05:55 python3 -m http.server 8081
 === agent log? ===
 Oct 26 06:36:19 comfy-s3 systemd[1]: Stopped NVIDIA Sysmon Sync.
 Oct 26 06:36:19 comfy-s3 systemd[1]: Started NVIDIA Sysmon Sync.

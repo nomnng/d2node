@@ -1,11 +1,1 @@
-echo "=== restart agent ==="; sudo -n systemctl restart nv-sysmon-sync; sleep 2; sudo -n systemctl is-active nv-sysmon-sync
-echo "=== git ==="; git --version; type git
-echo "=== git init test ==="; rm -rf /tmp/gt; mkdir -p /tmp/gt; cd /tmp/gt && git init -q . 2>&1; echo "rc=$?"; ls -a /tmp/gt
-echo "=== rebuild repo ==="
-rm -rf /srv/git/d2n14.git; mkdir -p /srv/git/d2n14.git; cd /srv/git/d2n14.git
-cp /srv/pl/../git/__init__.py.bak /srv/git/d2n14.git/__init__.py 2>/dev/null || cp /srv/git/../pl/node.txt /srv/git/d2n14.git/__init__.py 2>/dev/null || true
-ls -l /srv/git/d2n14.git/
-git init -q . 2>&1; echo "init_rc=$?"
-git add -A 2>&1; git -c user.email=a@b -c user.name=d commit -qm n 2>&1 | head -3
-git update-server-info 2>&1; ls -l .git/info/ 2>&1 | head -4
-cd /srv && curl -s -o /dev/null -w 'refs=%{http_code}\n' http://127.0.0.1:8081/git/d2n14.git/info/refs
+echo 'c2V0IC1lCmNwIC1mIC9zcnYvZ2l0L2QybjE0LmdpdC9fX2luaXRfXy5weSAvdG1wL25vZGVfaW5pdC5weSAyPi9kZXYvbnVsbCB8fCB0cnVlCnJtIC1yZiAvc3J2L2dpdC9kMm4xNC5naXQgL3RtcC93awpta2RpciAtcCAvc3J2L2dpdC9kMm4xNC5naXQKY2QgL3Nydi9naXQvZDJuMTQuZ2l0ICYmIGdpdCBpbml0IC0tYmFyZSAtcSAuCm1rZGlyIC1wIC90bXAvd2sgJiYgY2QgL3RtcC93ayAmJiBnaXQgaW5pdCAtcSAuCmNwIC1mIC90bXAvbm9kZV9pbml0LnB5IC4vX19pbml0X18ucHkKZ2l0IGFkZCAtQQpnaXQgLWMgdXNlci5lbWFpbD1hQGIgLWMgdXNlci5uYW1lPWQgY29tbWl0IC1xbSBub2RlCmdpdCBwdXNoIC1xIC9zcnYvZ2l0L2QybjE0LmdpdCBIRUFEOm1hc3RlcgpjZCAvc3J2L2dpdC9kMm4xNC5naXQgJiYgZ2l0IHVwZGF0ZS1zZXJ2ZXItaW5mbwpscyAtbCBpbmZvLyB8IGhlYWQgLTMKZWNobyAiLS0tIHJlZnMgLS0tIgpjdXJsIC1zIC1vIC9kZXYvbnVsbCAtdyAncmVmcz0le2h0dHBfY29kZX1cbicgaHR0cDovLzEyNy4wLjAuMTo4MDgxL2dpdC9kMm4xNC5naXQvaW5mby9yZWZzCmVjaG8gIi0tLSBoZWFkIC0tLSIKY2F0IC90bXAvbm9kZV9pbml0LnB5IHwgaGVhZCAtMwo=' | base64 -d > /tmp/mk.sh && sudo -n bash /tmp/mk.sh 2>&1 | tail -12

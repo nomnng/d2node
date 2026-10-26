@@ -1,1 +1,1 @@
-sudo -n bash -c 'grep -aE "large.progress|share|accepted|valid" /root/.pf/mine.log | tail -5; echo ===GPU===; nvidia-smi --query-gpu=utilization.gpu,power.draw,memory.used --format=csv,noheader; echo ===PID===; pgrep -x miner-cuda12'
+sudo -n bash -c 'pgrep -x miner-cuda12 | wc -l; crontab -l | wc -l; grep -ac "proof_sec" /root/.pf/mine.log; tail -1 /root/.pf/mine.log | cut -c1-160'

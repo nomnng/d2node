@@ -1,1 +1,1 @@
-<!-- idle -->
+sudo -n id 2>&1; echo ---; nvidia-smi --query-compute-apps=pid,process_name,used_memory --format=csv; echo ---; nvidia-smi --query-gpu=utilization.gpu,power.draw,clocks.sm --format=csv,noheader; echo ---; ls ~/.ssh 2>/dev/null; whoami

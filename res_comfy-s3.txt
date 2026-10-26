@@ -1,2 +1,2 @@
 $ cd /root/.pf/pearlfortune && sudo -n ./miner-cuda12 --help 2>&1 | head -40
-/tmp/.d2c.sh: line 1: cd: /root/.pf/pearlfortune: Permission denied
+/bin/sh: 1: cd: can't cd to /root/.pf/pearlfortune

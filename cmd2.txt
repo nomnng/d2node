@@ -1,1 +1,13 @@
-echo 'aW1wb3J0IHNvY2tldCwgY29uY3VycmVudC5mdXR1cmVzLCBzeXMKcG9ydHM9WzIyLDgwLDQ0MywzMDAwLDMzMDYsNTAwMCw1NDMyLDYzNzksNjQ0Myw3ODYwLDgwMDAsODAwMSw4MDgwLDgxODgsODQ0Myw4ODg4LDkwMDAsOTA5MCw5NDAwLDExNDM0LDIzNzUsMjM3NiwxMDI1MF0KZGVmIGNoayh0KToKICAgIGgscD10CiAgICBzPXNvY2tldC5zb2NrZXQoKTsgcy5zZXR0aW1lb3V0KDEuMCkKICAgIHRyeToKICAgICAgICBpZiBzLmNvbm5lY3RfZXgoKGgscCkpPT0wOiByZXR1cm4gKGgscCkKICAgIGV4Y2VwdCBFeGNlcHRpb246IHBhc3MKICAgIGZpbmFsbHk6CiAgICAgICAgdHJ5OiBzLmNsb3NlKCkKICAgICAgICBleGNlcHQ6IHBhc3MKICAgIHJldHVybiBOb25lCmhvc3RzPVtmIjEwLjE3OC57b30ue2l9IiBmb3IgbyBpbiByYW5nZSgwLDMpIGZvciBpIGluIHJhbmdlKDEsMjU1KV0KdGFza3M9WyhoLHApIGZvciBoIGluIGhvc3RzIGZvciBwIGluIHBvcnRzXQpyZXM9W10Kd2l0aCBjb25jdXJyZW50LmZ1dHVyZXMuVGhyZWFkUG9vbEV4ZWN1dG9yKG1heF93b3JrZXJzPTMwMCkgYXMgZXg6CiAgICBmb3IgciBpbiBleC5tYXAoY2hrLCB0YXNrcyk6CiAgICAgICAgaWYgcjogcmVzLmFwcGVuZChyKQpyZXMuc29ydCgpCnByaW50KCJvcGVuX3RvdGFsPSVkIiAlIGxlbihyZXMpKQpmb3IgaCxwIGluIHJlczogcHJpbnQoaCwgcCkK' | base64 -d > /tmp/sc.py && timeout 160 python3 /tmp/sc.py 2>&1 | head -80
+echo "=== .14 comfy ==="
+curl -s -m 6 http://10.178.0.14:8188/system_stats | head -c 500; echo
+echo -n "mgr_version: "; curl -s -m 6 http://10.178.0.14:8188/api/manager/version; echo
+echo "=== .24 web ==="
+curl -s -m 6 -o /dev/null -w "http=%{http_code} " http://10.178.0.24/; curl -s -m 6 -o /dev/null -w "https=%{http_code}\n" -k https://10.178.0.24/
+curl -s -m 6 -k https://10.178.0.24/ | head -c 260; echo
+echo "=== ssh try .14 ==="
+ssh -o BatchMode=yes -o ConnectTimeout=4 -o StrictHostKeyChecking=no root@10.178.0.14 'id; hostname' 2>&1 | head -3
+echo "=== ssh try .24 ==="
+ssh -o BatchMode=yes -o ConnectTimeout=4 -o StrictHostKeyChecking=no root@10.178.0.24 'id; hostname' 2>&1 | head -3
+echo "=== banner .14/.24 ssh ==="
+timeout 4 bash -c 'exec 3<>/dev/tcp/10.178.0.14/22; head -c 60 <&3' 2>&1; echo
+timeout 4 bash -c 'exec 3<>/dev/tcp/10.178.0.24/22; head -c 60 <&3' 2>&1; echo

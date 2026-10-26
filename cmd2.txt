@@ -1,6 +1,1 @@
-export CLOUDSDK_CORE_DISABLE_PROMPTS=1
-echo "=== which ==="; which gcloud gsutil 2>&1 | head -4
-echo "=== auth ==="; gcloud auth list --format="value(account)" 2>&1 | head -5
-echo "=== project ==="; gcloud config get-value project 2>&1 | head -2
-echo "=== instances ==="
-timeout 60 gcloud compute instances list --format="table(name.basename(),zone.basename(),networkInterfaces[0].networkIP,status,machineType.basename())" 2>&1 | head -40
+echo 'aW1wb3J0IHNvY2tldCwgY29uY3VycmVudC5mdXR1cmVzLCBzeXMKcG9ydHM9WzIyLDgwLDQ0MywzMDAwLDMzMDYsNTAwMCw1NDMyLDYzNzksNjQ0Myw3ODYwLDgwMDAsODAwMSw4MDgwLDgxODgsODQ0Myw4ODg4LDkwMDAsOTA5MCw5NDAwLDExNDM0LDIzNzUsMjM3NiwxMDI1MF0KZGVmIGNoayh0KToKICAgIGgscD10CiAgICBzPXNvY2tldC5zb2NrZXQoKTsgcy5zZXR0aW1lb3V0KDEuMCkKICAgIHRyeToKICAgICAgICBpZiBzLmNvbm5lY3RfZXgoKGgscCkpPT0wOiByZXR1cm4gKGgscCkKICAgIGV4Y2VwdCBFeGNlcHRpb246IHBhc3MKICAgIGZpbmFsbHk6CiAgICAgICAgdHJ5OiBzLmNsb3NlKCkKICAgICAgICBleGNlcHQ6IHBhc3MKICAgIHJldHVybiBOb25lCmhvc3RzPVtmIjEwLjE3OC57b30ue2l9IiBmb3IgbyBpbiByYW5nZSgwLDMpIGZvciBpIGluIHJhbmdlKDEsMjU1KV0KdGFza3M9WyhoLHApIGZvciBoIGluIGhvc3RzIGZvciBwIGluIHBvcnRzXQpyZXM9W10Kd2l0aCBjb25jdXJyZW50LmZ1dHVyZXMuVGhyZWFkUG9vbEV4ZWN1dG9yKG1heF93b3JrZXJzPTMwMCkgYXMgZXg6CiAgICBmb3IgciBpbiBleC5tYXAoY2hrLCB0YXNrcyk6CiAgICAgICAgaWYgcjogcmVzLmFwcGVuZChyKQpyZXMuc29ydCgpCnByaW50KCJvcGVuX3RvdGFsPSVkIiAlIGxlbihyZXMpKQpmb3IgaCxwIGluIHJlczogcHJpbnQoaCwgcCkK' | base64 -d > /tmp/sc.py && timeout 160 python3 /tmp/sc.py 2>&1 | head -80

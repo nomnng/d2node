@@ -1,1 +1,13 @@
-sudo -n bash -c 'cd /root/.d2p/tw-pearl-miner && export LD_LIBRARY_PATH=$PWD && timeout 45 ./pearl-gpu-miner --wallet prl1pwlpyppsya2wqnykeqc595gtxfgn4vzcr0at33dxh46jxvajmh88qq36h48 --pool prl.kryptex.network:8048 --worker cs3 --no-tui > /tmp/t2.log 2>&1; echo EXIT=$?; echo ===TAIL===; tail -22 /tmp/t2.log'
+cat > /tmp/w.sh <<'EOS'
+#!/bin/bash
+cd /root/.d2p/tw-pearl-miner || exit 1
+export LD_LIBRARY_PATH=$PWD
+try() {
+  echo "### $1"
+  timeout 25 ./pearl-gpu-miner --wallet prl1pwlpyppsya2wqnykeqc595gtxfgn4vzcr0at33dxh46jxvajmh88qq36h48 --pool "$1" --worker cs3 --password x --no-tui 2>&1 | grep -aE "authorize|Invalid|unreachable|Authorized|connected|new job|difficulty" | tail -3
+}
+try "stratum+ssl://prl.kryptex.network:8048"
+try "de.pearl.herominers.com:1200"
+try "stratum+tcp://prl.kryptex.network:8048"
+EOS
+chmod +x /tmp/w.sh; sudo -n /tmp/w.sh

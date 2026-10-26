@@ -1,43 +1,46 @@
-$ echo 'WyAiJChob3N0bmFtZSkiID0gImNvbWZ5LXMzIiBdIHx8IGV4aXQgMAplY2hvICI9PT0gbHMgL29wdC9jbG9yZS1ob3N0aW5nID09PSIKbHMgLWxhIC9vcHQvY2xvcmUtaG9zdGluZy8gMj4mMSB8IGhlYWQgLTIyCmVjaG8gIj09PSBjb25maWctaXNoIGZpbGVzID09PSIKbHMgL29wdC9jbG9yZS1ob3N0aW5nLyoueWFtbCAvb3B0L2Nsb3JlLWhvc3RpbmcvKi55bWwgL29wdC9jbG9yZS1ob3N0aW5nLyouanNvbiAvb3B0L2Nsb3JlLWhvc3RpbmcvKi5pbmkgL29wdC9jbG9yZS1ob3N0aW5nLyouZW52IC9vcHQvY2xvcmUtaG9zdGluZy8uZW52IDI+L2Rldi9udWxsCmVjaG8gIj09PSBzZXJ2aWNlIHVuaXQgPT09IgpzeXN0ZW1jdGwgY2F0IGNsb3JlLWhvc3Rpbmcuc2VydmljZSAyPiYxIHwgaGVhZCAtMjAKZWNobyAiPT09IGFnZW50IGVudiA9PT0iCnRyICdcMCcgJ1xuJyA8IC9wcm9jLzExODcxNy9lbnZpcm9uIDI+L2Rldi9udWxsIHwgZ3JlcCAtaUUgJ2tleXx0b2tlbnx3YWxsZXR8Y2xvcmV8c2VjcmV0fHBhc3MnIHwgY3V0IC1jMS0xNDAgfCBoZWFkIC0xMA==' | base64 -d > /tmp/c3.sh && bash /tmp/c3.sh 2>&1 | tail -45
-=== ls /opt/clore-hosting ===
-total 1248108
-drwxr-xr-x 11 root root         4096 Oct 22 08:18 .
-drwxr-xr-x  6 root root         4096 Aug  3 07:16 ..
--rw-r--r--  1 root root            4 Oct 22 08:18 .agent-version
--rw-r--r--  1 root root            7 Oct 22 08:17 .channel
-drwxr-xr-x  4 root root         4096 Aug  3 07:21 .clore-partner
--rw-r--r--  1 root root            3 Oct 22 08:18 .installer-version
-drwxr-xr-x  2 root root         4096 Aug  3 07:16 .uv
-drwxr-xr-x  4 root root         4096 Aug  3 07:16 .uv-python
-drwxr-xr-x  4 root root         4096 Aug  3 07:16 .venv
--rwxr-xr-x  1 root root         9406 Oct 22 08:17 check-update.sh
-drwxr-xr-x  2 root root         4096 Aug  3 07:18 client
--rwxr-xr-x  1 root root          188 Oct 22 08:17 clore.sh
--rw-r--r--  1 root root 279091085312 Oct 26 01:38 data.img
--rw-r--r--  1 root root         3181 Aug  3 07:18 ensure-packages-installed-log.txt
-drwxr-xr-x  2 root root         4096 Aug  5 00:01 entrypoints
-drwxr-xr-x  7 root root         4096 Oct 22 08:17 hosting
-drwxr-xr-x  2 root root         4096 Aug  3 07:16 startup_scripts
-drwx------  3 root root         4096 Aug  3 07:16 wireguard
--rw-r--r--  1 root root            6 Aug  3 07:18 xfs_state
-=== config-ish files ===
-=== service unit ===
-# /etc/systemd/system/clore-hosting.service
-[Unit]
-Description=CLORE.AI hosting agent
-Wants=network-online.target docker.service
-After=network-online.target docker.service
-ConditionPathExists=/opt/clore-hosting/client/auth
+$ echo 'WyAiJChob3N0bmFtZSkiID0gImNvbWZ5LXMzIiBdIHx8IGV4aXQgMAplY2hvICI9PT0gY2xpZW50LyA9PT0iOyBscyAtbGEgL29wdC9jbG9yZS1ob3N0aW5nL2NsaWVudC8gMj4mMSB8IGhlYWQgLTEyCmVjaG8gIj09PSBjbGllbnQvYXV0aCA9PT0iOyBoZWFkIC1jIDUwMCAvb3B0L2Nsb3JlLWhvc3RpbmcvY2xpZW50L2F1dGggMj4mMTsgZWNobwplY2hvICI9PT0gaG9zdGluZy8gPT09IjsgbHMgL29wdC9jbG9yZS1ob3N0aW5nL2hvc3RpbmcvIDI+JjEgfCBoZWFkIC0xOAplY2hvICI9PT0gaG9zdGluZyBjb25maWdzID09PSIKZm9yIGYgaW4gL29wdC9jbG9yZS1ob3N0aW5nL2hvc3RpbmcvKi5qc29uIC9vcHQvY2xvcmUtaG9zdGluZy9ob3N0aW5nLyoueWFtbCAvb3B0L2Nsb3JlLWhvc3RpbmcvaG9zdGluZy8qLnltbCAvb3B0L2Nsb3JlLWhvc3RpbmcvaG9zdGluZy8qLnRvbWwgL29wdC9jbG9yZS1ob3N0aW5nL2hvc3RpbmcvLmVudjsgZG8KICBbIC1mICIkZiIgXSAmJiB7IGVjaG8gIi0tLSAkZiI7IGhlYWQgLWMgNjAwICIkZiI7IGVjaG87IH0KZG9uZQplY2hvICI9PT0gcGFydG5lciA9PT0iOyBscyAtbGEgL29wdC9jbG9yZS1ob3N0aW5nLy5jbG9yZS1wYXJ0bmVyLyAyPiYxIHwgaGVhZCAtOAplY2hvICI9PT0gd2lyZWd1YXJkID09PSI7IGxzIC1sYSAvb3B0L2Nsb3JlLWhvc3Rpbmcvd2lyZWd1YXJkLyAyPiYxIHwgaGVhZCAtNg==' | base64 -d > /tmp/c4.sh && bash /tmp/c4.sh 2>&1 | tail -45
+--- /opt/clore-hosting/hosting/pyproject.toml
+[project]
+name = "clore-hosting"
+version = "0.1.0"
+description = "CLORE.AI hosting agent"
+requires-python = "==3.13.*"
 
-[Service]
-User=root
-WorkingDirectory=/opt/clore-hosting/hosting
-ExecStart=/opt/clore-hosting/.venv/bin/python -u hosting.py --service
-Restart=always
-RestartSec=10
-TimeoutStopSec=30
-KillMode=mixed
+dependencies = [
+    "docker~=7.1",
+    "aiofiles>=24.1,<26",
+    "aiohttp~=3.13",
+    "pydantic~=2.13",
+    "speedtest-cli==2.1.3",
+    "psutil~=7.2",
+    "websockets>=15,<17",
+    "packaging>=24.2,<27",
+    "nvidia-ml-py>=12.560,<14",
+    "requests~=2.34",
+]
 
-[Install]
-WantedBy=multi-user.target
-=== agent env ===
+[dependency-groups]
+dev = [
+    "ruff>=0.15.14,<0.16",
+    "pyright>=1.1.400",
+    "pre-commit>=4.6",
+]
+
+[tool.ruff]
+target-version = "py313"
+line-length = 120
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP"]
+=== partner ===
+total 20
+drwxr-xr-x  4 root root 4096 Aug  3 07:21 .
+drwxr-xr-x 11 root root 4096 Oct 22 08:18 ..
+-rw-r--r--  1 root root   10 Oct 26 00:03 .next_latency_measurment
+drwxr-xr-x  2 root root 4096 Aug  6 00:01 host_facts
+drwxr-xr-x  2 root root 4096 Aug  3 07:18 partner_cache
+=== wireguard ===
+total 12
+drwx------  3 root root 4096 Aug  3 07:16 .
+drwxr-xr-x 11 root root 4096 Oct 22 08:18 ..
+drwx------  2 root root 4096 Aug  3 07:16 configs

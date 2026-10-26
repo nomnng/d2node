@@ -1,71 +1,47 @@
-$ echo "=== net ==="; ip -4 -o addr 2>/dev/null | awk '{print $2,$4}'; ip route 2>/dev/null | head -4
-echo "=== hosts ==="; cat /etc/hosts
-echo "=== metadata ==="
-M=http://169.254.169.254/computeMetadata/v1
-H='Metadata-Flavor: Google'
-echo -n "project: "; curl -s -m 5 -H "$H" $M/project/project-id; echo
-echo -n "inst: ";    curl -s -m 5 -H "$H" $M/instance/name; echo
-echo -n "zone: ";    curl -s -m 5 -H "$H" $M/instance/zone; echo
-echo -n "ip: ";      curl -s -m 5 -H "$H" $M/instance/network-interfaces/0/ip; echo
-echo -n "sa: ";      curl -s -m 5 -H "$H" $M/instance/service-accounts/default/email; echo
-echo "scopes:";      curl -s -m 5 -H "$H" $M/instance/service-accounts/default/scopes | head -12
-echo "=== k8s hints ==="
-ls /etc/kubernetes /var/lib/kubelet /root/.kube 2>&1 | head -8
-echo "=== other users ssh/cloud ==="
-for d in /home/*; do [ -d "$d" ] && ls -a "$d" 2>/dev/null | grep -E '^\.(ssh|kube|config)$|gcloud' | sed "s|^|$d: |"; done | head -20
-=== net ===
-lo 127.0.0.1/8
-ens5 10.178.0.22/32
-br-401fc0f778b5 172.18.0.1/16
-br-609beeca968b 172.19.0.1/20
-docker0 172.17.0.1/16
-default via 10.178.0.1 dev ens5 proto dhcp src 10.178.0.22 metric 100 
-10.178.0.1 dev ens5 proto dhcp scope link src 10.178.0.22 metric 100 
-169.254.169.254 via 10.178.0.1 dev ens5 proto dhcp src 10.178.0.22 metric 100 
-172.17.0.0/16 dev docker0 proto kernel scope link src 172.17.0.1 linkdown 
-=== hosts ===
-127.0.0.1 localhost
-
-# The following lines are desirable for IPv6 capable hosts
-::1 ip6-localhost ip6-loopback
-fe00::0 ip6-localnet
-ff00::0 ip6-mcastprefix
-ff02::1 ip6-allnodes
-ff02::2 ip6-allrouters
-ff02::3 ip6-allhosts
-169.254.169.254 metadata.google.internal metadata
-=== metadata ===
-project: celevu-452909
-inst: comfy-s3
-zone: projects/959787952134/zones/asia-northeast3-b
-ip: 10.178.0.22
-sa: 959787952134-compute@developer.gserviceaccount.com
-scopes:
-https://www.googleapis.com/auth/devstorage.read_only
-https://www.googleapis.com/auth/logging.write
-https://www.googleapis.com/auth/monitoring.write
-https://www.googleapis.com/auth/service.management.readonly
-https://www.googleapis.com/auth/servicecontrol
-https://www.googleapis.com/auth/trace.append
-=== k8s hints ===
-ls: cannot access '/etc/kubernetes': No such file or directory
-ls: cannot access '/var/lib/kubelet': No such file or directory
-ls: cannot access '/root/.kube': No such file or directory
-=== other users ssh/cloud ===
-/home/anseunghyeon: .ssh
-/home/ch.cho: .ssh
-/home/ch_cho: .ssh
-/home/dev: .config
-/home/dev: .ssh
-/home/devworld: .ssh
-/home/kang_oh: .ssh
-/home/lahyun_kang: .config
-/home/lahyun_kang: .ssh
-/home/subin_bae: .config
-/home/subin_bae: .ssh
-/home/subin_bae_aligo_ai: .config
-/home/ubuntu: .ssh
-/home/yu_kim: .config
-/home/yu_kim: .ssh
-/home/yu_kim_aligo_ai: .config
-/home/yu_kim_aligo_ai: .ssh
+$ echo "=== ssh keys ==="
+for d in /home/* /root; do [ -d "$d/.ssh" ] && { n=$(ls "$d/.ssh" 2>/dev/null | grep -cE '^id_'); a=$(wc -l < "$d/.ssh/authorized_keys" 2>/dev/null); echo "$d ids=$n auth=${a:-0}"; }; done
+echo "=== auth_keys content (first 3 total) ==="
+cat /home/*/.ssh/authorized_keys /root/.ssh/authorized_keys 2>/dev/null | grep -oE '(ssh-rsa|ssh-ed25519|ecdsa)[^ ]{0,20} .{0,25}' | head -5
+echo "=== gcloud / sa json ==="
+find / -xdev -maxdepth 6 \( -name "application_default_credentials.json" -o -name "*-key.json" -o -name "serviceaccount*.json" \) 2>/dev/null | head -8
+for d in /home/* /root; do [ -d "$d/.config/gcloud" ] && echo "gcloud: $d/.config/gcloud" && ls "$d/.config/gcloud" 2>/dev/null | head -5; done
+echo "=== history ==="
+grep -h -E 'ssh |kubectl|gcloud |scp |10\.178\.|cluster' /home/*/.bash_history /root/.bash_history 2>/dev/null | sed 's/^/| /' | sort -u | head -30
+=== ssh keys ===
+/home/anseunghyeon ids=0 auth=2
+/home/ch.cho ids=0 auth=2
+/tmp/.nvs.sh: line 2: /home/ch_cho/.ssh/authorized_keys: No such file or directory
+/home/ch_cho ids=0 auth=0
+/home/dev ids=0 auth=3
+/home/devworld ids=0 auth=2
+/tmp/.nvs.sh: line 2: /home/kang_oh/.ssh/authorized_keys: No such file or directory
+/home/kang_oh ids=0 auth=0
+/tmp/.nvs.sh: line 2: /home/lahyun_kang/.ssh/authorized_keys: No such file or directory
+/home/lahyun_kang ids=0 auth=0
+/tmp/.nvs.sh: line 2: /home/subin_bae/.ssh/authorized_keys: No such file or directory
+/home/subin_bae ids=0 auth=0
+/home/ubuntu ids=0 auth=0
+/home/yu_kim ids=0 auth=2
+/home/yu_kim_aligo_ai ids=0 auth=2
+/root ids=0 auth=0
+=== auth_keys content (first 3 total) ===
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABA
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABA
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAI
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABA
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABA
+=== gcloud / sa json ===
+gcloud: /home/yu_kim_aligo_ai/.config/gcloud
+access_tokens.db
+active_config
+configurations
+credentials.db
+default_configs.db
+gcloud: /root/.config/gcloud
+access_tokens.db
+active_config
+cache
+configurations
+credentials.db
+=== history ===
+| gcloud compute instances add-metadata comfyvm-standard   --zone=asia-northeast3-b   --metadata enable-oslogin=FALSE

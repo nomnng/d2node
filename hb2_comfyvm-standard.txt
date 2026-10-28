@@ -1,1 +1,1 @@
-hb comfyvm-standard 1793008808
+boot comfyvm-standard 1793145628
